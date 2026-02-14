@@ -54,8 +54,7 @@ AI Integration • Cybersecurity • DevOps Basics • Blockchain Concepts • C
 
 ## 🤝 Let's Connect
 
-* LinkedIn: (Add your link)
-* Portfolio Website: (Optional later)
+* LinkedIn: www.linkedin.com/in/shreyas-alva-baa888227
 
 Always open to collaboration, learning opportunities, and innovative tech projects.
 
