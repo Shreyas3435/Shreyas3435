@@ -26,17 +26,6 @@ I enjoy exploring how AI, security, and scalable infrastructure come together to
 <img src="https://github-readme-streak-stats.herokuapp.com/?user=Shreyas3435&theme=tokyonight" alt="GitHub Streak" />
 </p>
  
-<p align="center">
-<img src="https://github-readme-stats.vercel.app/api/top-langs/?username=Shreyas3435&layout=compact&theme=tokyonight%22 alt="Most Used Languages" />
-</p>
- 
----
- 
-## 🏆 GitHub Trophies
- 
-<p align="center">
-<img src="https://github-profile-trophy.vercel.app/?username=Shreyas3435&theme=tokyonight&no-frame=true&column=5&margin-w=15&margin-h=15%22 alt="GitHub Trophies" />
-</p>
 
 ---
 ## 🛠 Tech Stack
