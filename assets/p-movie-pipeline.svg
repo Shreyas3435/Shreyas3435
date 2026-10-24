@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="440" height="250" viewBox="0 0 440 250">
+<defs><pattern id="dots" width="22" height="22" patternUnits="userSpaceOnUse"><circle cx="1" cy="1" r="1" fill="#1b2128"/></pattern></defs>
+<style>
+  .pulse{stroke:#34d399;stroke-width:2.2;fill:none;stroke-linecap:round;stroke-dasharray:5 95;animation:flow linear infinite}
+  @keyframes flow{from{stroke-dashoffset:100}to{stroke-dashoffset:0}}
+  .trace{stroke:#1f3a33;stroke-width:2;fill:none;stroke-linejoin:round}
+  .via{fill:#07090c;stroke:#2b4a42;stroke-width:2}
+  .fade{opacity:0;animation:fade .7s ease forwards}
+  @keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+  .ping{animation:ping 2s ease-out infinite;transform-box:fill-box;transform-origin:center}
+  @keyframes ping{from{transform:scale(1);opacity:.7}to{transform:scale(3);opacity:0}}
+  .caret{animation:blink 1s step-end infinite}
+  @keyframes blink{50%{opacity:0}}
+.ar{animation:ar 1.8s ease-in-out infinite}@keyframes ar{50%{transform:translateX(3px)}}</style>
+<rect x=".5" y=".5" width="439" height="249" rx="14" fill="#07090c" stroke="#21262d"/>
+<rect x=".5" y=".5" width="439" height="249" rx="14" fill="url(#dots)"/>
+<circle cx="28" cy="30" r="4" fill="none" stroke="#7d8590" stroke-width="1.5"/><text x="40" y="34" font-family="'JetBrains Mono','Fira Code',Consolas,'Courier New',monospace" font-size="10.5" fill="#7d8590" letter-spacing="1.5">SOURCE</text>
+<text x="416" y="34" text-anchor="end" font-family="'JetBrains Mono','Fira Code',Consolas,'Courier New',monospace" font-size="10.5" fill="#484f58">Shreyas3435/movie-data-pipeline</text>
+<text x="24" y="76" font-family="'Segoe UI',Inter,'Helvetica Neue',Arial,sans-serif" font-size="22" font-weight="800" fill="#e6edf3">Movie Data Pipeline</text>
+<path d="M24 88 H72" stroke="#34d399" stroke-width="2" stroke-linecap="round"/>
+<text x="24" y="114" font-family="'Segoe UI',Inter,'Helvetica Neue',Arial,sans-serif" font-size="14" fill="#7d8590">ETL pipeline for movie analytics that pulls</text>
+<text x="24" y="134" font-family="'Segoe UI',Inter,'Helvetica Neue',Arial,sans-serif" font-size="14" fill="#7d8590">from the OMDb API, cleans the data and loads</text>
+<text x="24" y="154" font-family="'Segoe UI',Inter,'Helvetica Neue',Arial,sans-serif" font-size="14" fill="#7d8590">it into SQLite.</text>
+<rect x="24" y="198" width="61" height="24" rx="6" fill="#0d1117" stroke="#21262d"/><text x="55" y="214" text-anchor="middle" font-family="'JetBrains Mono','Fira Code',Consolas,'Courier New',monospace" font-size="11" fill="#adbac7">Python</text>
+<rect x="93" y="198" width="61" height="24" rx="6" fill="#0d1117" stroke="#21262d"/><text x="124" y="214" text-anchor="middle" font-family="'JetBrains Mono','Fira Code',Consolas,'Courier New',monospace" font-size="11" fill="#adbac7">SQLite</text>
+<rect x="162" y="198" width="40" height="24" rx="6" fill="#0d1117" stroke="#21262d"/><text x="182" y="214" text-anchor="middle" font-family="'JetBrains Mono','Fira Code',Consolas,'Courier New',monospace" font-size="11" fill="#adbac7">ETL</text>
+<text class="ar" x="416" y="215" text-anchor="end" font-family="'JetBrains Mono','Fira Code',Consolas,'Courier New',monospace" font-size="12" font-weight="700" fill="#34d399">view code →</text>
+<path class="trace" d="M439 64 L400 64 L380 84 L380 120"/><path class="pulse" pathLength="100" d="M439 64 L400 64 L380 84 L380 120" style="animation-duration:3s"/><circle class="via" cx="380" cy="120" r="4"/>
+</svg>

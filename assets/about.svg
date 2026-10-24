@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="252" viewBox="0 0 900 252">
+<defs><pattern id="dots" width="22" height="22" patternUnits="userSpaceOnUse"><circle cx="1" cy="1" r="1" fill="#1b2128"/></pattern></defs>
+<style>
+  .pulse{stroke:#34d399;stroke-width:2.2;fill:none;stroke-linecap:round;stroke-dasharray:5 95;animation:flow linear infinite}
+  @keyframes flow{from{stroke-dashoffset:100}to{stroke-dashoffset:0}}
+  .trace{stroke:#1f3a33;stroke-width:2;fill:none;stroke-linejoin:round}
+  .via{fill:#07090c;stroke:#2b4a42;stroke-width:2}
+  .fade{opacity:0;animation:fade .7s ease forwards}
+  @keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+  .ping{animation:ping 2s ease-out infinite;transform-box:fill-box;transform-origin:center}
+  @keyframes ping{from{transform:scale(1);opacity:.7}to{transform:scale(3);opacity:0}}
+  .caret{animation:blink 1s step-end infinite}
+  @keyframes blink{50%{opacity:0}}
+</style>
+<rect x=".5" y=".5" width="899" height="251" rx="14" fill="#07090c" stroke="#21262d"/>
+<rect x=".5" y=".5" width="899" height="251" rx="14" fill="url(#dots)"/>
+<rect x=".5" y=".5" width="52" height="251" rx="14" fill="#0d1117"/><rect x="40" y=".5" width="13" height="251" fill="#0d1117"/><line x1="53" y1="0" x2="53" y2="252" stroke="#21262d"/>
+<text x="38" y="34" text-anchor="end" font-family="'JetBrains Mono','Fira Code',Consolas,'Courier New',monospace" font-size="12" fill="#484f58">1</text>
+<text class="fade" style="animation-delay:0.00s" x="72" y="34" font-family="'JetBrains Mono','Fira Code',Consolas,'Courier New',monospace" font-size="14" fill="#484f58" xml:space="preserve"><tspan fill="#34d399">const</tspan> <tspan fill="#e6edf3">shreyas</tspan> <tspan fill="#484f58">=</tspan> <tspan fill="#484f58">{</tspan></text>
+<text x="38" y="60" text-anchor="end" font-family="'JetBrains Mono','Fira Code',Consolas,'Courier New',monospace" font-size="12" fill="#484f58">2</text>
+<text class="fade" style="animation-delay:0.08s" x="72" y="60" font-family="'JetBrains Mono','Fira Code',Consolas,'Courier New',monospace" font-size="14" fill="#484f58" xml:space="preserve">  <tspan fill="#7d8590">role</tspan><tspan fill="#484f58">:</tspan>        <tspan fill="#484f58"><tspan fill="#e6edf3">"Full-Stack Developer"</tspan></tspan>,</text>
+<text x="38" y="86" text-anchor="end" font-family="'JetBrains Mono','Fira Code',Consolas,'Courier New',monospace" font-size="12" fill="#484f58">3</text>
+<text class="fade" style="animation-delay:0.16s" x="72" y="86" font-family="'JetBrains Mono','Fira Code',Consolas,'Courier New',monospace" font-size="14" fill="#484f58" xml:space="preserve">  <tspan fill="#7d8590">focus</tspan><tspan fill="#484f58">:</tspan>       <tspan fill="#484f58">[<tspan fill="#e6edf3">"AI agents &amp; MCP tooling"</tspan>, <tspan fill="#e6edf3">"secure web apps"</tspan>, <tspan fill="#e6edf3">"data pipelines"</tspan>]</tspan>,</text>
+<text x="38" y="112" text-anchor="end" font-family="'JetBrains Mono','Fira Code',Consolas,'Courier New',monospace" font-size="12" fill="#484f58">4</text>
+<text class="fade" style="animation-delay:0.24s" x="72" y="112" font-family="'JetBrains Mono','Fira Code',Consolas,'Courier New',monospace" font-size="14" fill="#484f58" xml:space="preserve">  <tspan fill="#7d8590">previously</tspan><tspan fill="#484f58">:</tspan>  <tspan fill="#484f58"><tspan fill="#e6edf3">"Database Management Intern @ HCL Aftermarket Cloud"</tspan></tspan>,</text>
+<text x="38" y="138" text-anchor="end" font-family="'JetBrains Mono','Fira Code',Consolas,'Courier New',monospace" font-size="12" fill="#484f58">5</text>
+<text class="fade" style="animation-delay:0.32s" x="72" y="138" font-family="'JetBrains Mono','Fira Code',Consolas,'Courier New',monospace" font-size="14" fill="#484f58" xml:space="preserve">  <tspan fill="#7d8590">education</tspan><tspan fill="#484f58">:</tspan>   <tspan fill="#484f58"><tspan fill="#e6edf3">"B.E. Computer Science, VTU"</tspan></tspan>,</text>
+<text x="38" y="164" text-anchor="end" font-family="'JetBrains Mono','Fira Code',Consolas,'Courier New',monospace" font-size="12" fill="#484f58">6</text>
+<text class="fade" style="animation-delay:0.40s" x="72" y="164" font-family="'JetBrains Mono','Fira Code',Consolas,'Courier New',monospace" font-size="14" fill="#484f58" xml:space="preserve">  <tspan fill="#7d8590">certified</tspan><tspan fill="#484f58">:</tspan>   <tspan fill="#484f58">[<tspan fill="#e6edf3">"Tata Group — Cybersecurity"</tspan>, <tspan fill="#e6edf3">"Mastercard — Cybersecurity"</tspan>]</tspan>,</text>
+<text x="38" y="190" text-anchor="end" font-family="'JetBrains Mono','Fira Code',Consolas,'Courier New',monospace" font-size="12" fill="#484f58">7</text>
+<text class="fade" style="animation-delay:0.48s" x="72" y="190" font-family="'JetBrains Mono','Fira Code',Consolas,'Courier New',monospace" font-size="14" fill="#484f58" xml:space="preserve">  <tspan fill="#7d8590">motto</tspan><tspan fill="#484f58">:</tspan>       <tspan fill="#484f58"><tspan fill="#e6edf3">"Building. Learning. Improving. Repeat."</tspan></tspan>,</text>
+<text x="38" y="216" text-anchor="end" font-family="'JetBrains Mono','Fira Code',Consolas,'Courier New',monospace" font-size="12" fill="#484f58">8</text>
+<text class="fade" style="animation-delay:0.56s" x="72" y="216" font-family="'JetBrains Mono','Fira Code',Consolas,'Courier New',monospace" font-size="14" fill="#484f58" xml:space="preserve"><tspan fill="#484f58">};</tspan></text>
+</svg>

@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="440" height="96" viewBox="0 0 440 96">
+<defs><pattern id="dots" width="22" height="22" patternUnits="userSpaceOnUse"><circle cx="1" cy="1" r="1" fill="#1b2128"/></pattern></defs>
+<style>
+  .pulse{stroke:#34d399;stroke-width:2.2;fill:none;stroke-linecap:round;stroke-dasharray:5 95;animation:flow linear infinite}
+  @keyframes flow{from{stroke-dashoffset:100}to{stroke-dashoffset:0}}
+  .trace{stroke:#1f3a33;stroke-width:2;fill:none;stroke-linejoin:round}
+  .via{fill:#07090c;stroke:#2b4a42;stroke-width:2}
+  .fade{opacity:0;animation:fade .7s ease forwards}
+  @keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+  .ping{animation:ping 2s ease-out infinite;transform-box:fill-box;transform-origin:center}
+  @keyframes ping{from{transform:scale(1);opacity:.7}to{transform:scale(3);opacity:0}}
+  .caret{animation:blink 1s step-end infinite}
+  @keyframes blink{50%{opacity:0}}
+</style>
+<rect x=".5" y=".5" width="439" height="95" rx="14" fill="#07090c" stroke="#21262d"/>
+<rect x=".5" y=".5" width="439" height="95" rx="14" fill="url(#dots)"/>
+<text x="22" y="38" font-family="'Segoe UI',Inter,'Helvetica Neue',Arial,sans-serif" font-size="16" font-weight="700" fill="#e6edf3">Ai_Summary</text>
+<text x="418" y="37" text-anchor="end" font-family="'JetBrains Mono','Fira Code',Consolas,'Courier New',monospace" font-size="10.5" fill="#34d399" letter-spacing="1">AI</text>
+<text x="22" y="62" font-family="'Segoe UI',Inter,'Helvetica Neue',Arial,sans-serif" font-size="13" fill="#7d8590">Dockerised AI document-summary service with a web</text>
+<text x="22" y="80" font-family="'Segoe UI',Inter,'Helvetica Neue',Arial,sans-serif" font-size="13" fill="#7d8590">frontend.</text>
+</svg>
