@@ -1,20 +1,14 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="250" height="64" viewBox="0 0 250 64" role="img" aria-label="Projects">
-<defs>
-  <linearGradient id="b" x1="0" y1="0" x2="1" y2="1">
-    <stop offset="0" stop-color="#3fb950"/><stop offset=".5" stop-color="#a371f7"/><stop offset="1" stop-color="#39d0d8"/>
-    <animateTransform attributeName="gradientTransform" type="rotate" values="0 .5 .5;360 .5 .5" dur="4s" repeatCount="indefinite"/>
-  </linearGradient>
-  <linearGradient id="sh" x1="0" x2="1"><stop offset="0" stop-color="#fff" stop-opacity="0"/><stop offset=".5" stop-color="#fff" stop-opacity=".14"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></linearGradient>
-  <clipPath id="c"><rect x="2" y="2" width="246" height="60" rx="14"/></clipPath>
-</defs>
-<style>.sh{animation:sh 3.5s ease-in-out infinite}@keyframes sh{0%{transform:translateX(-120px)}50%,100%{transform:translateX(290px)}}
-.ar{animation:ar 1.6s ease-in-out infinite}@keyframes ar{50%{transform:translateX(4px)}}</style>
-<rect x="2" y="2" width="246" height="60" rx="14" fill="#0b0f19"/>
-<g clip-path="url(#c)"><rect class="sh" x="0" y="0" width="90" height="64" fill="url(#sh)"/></g>
-<rect x="2" y="2" width="246" height="60" rx="14" fill="none" stroke="url(#b)" stroke-width="2"/>
-<rect x="16" y="14" width="36" height="36" rx="10" fill="#3fb950" fill-opacity=".14"/>
-<g transform="translate(24 22) scale(.8333)"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12" fill="#3fb950"/></g>
-<text x="66" y="30" font-family="'Segoe UI',Inter,'Helvetica Neue',Arial,sans-serif" font-size="16" font-weight="700" fill="#e6edf3">Projects</text>
-<text x="66" y="47" font-family="'JetBrains Mono','Fira Code',Consolas,'Courier New',monospace" font-size="11" fill="#8b949e">see what I've shipped</text>
-<text class="ar" x="220" y="38" font-family="'Segoe UI',Inter,'Helvetica Neue',Arial,sans-serif" font-size="18" font-weight="700" fill="#3fb950">→</text>
+<style>
+  .run{fill:none;stroke:#34d399;stroke-width:2;stroke-linecap:round;stroke-dasharray:8 92;animation:r 4s linear infinite}
+  @keyframes r{from{stroke-dashoffset:100}to{stroke-dashoffset:0}}
+  .ar{animation:ar 1.8s ease-in-out infinite}@keyframes ar{50%{transform:translateX(4px)}}
+</style>
+<path d="M16 2 H234 Q248 2 248 16 V48 Q248 62 234 62 H16 Q2 62 2 48 V16 Q2 2 16 2 Z" fill="#0d1117" stroke="#21262d" stroke-width="1.5"/>
+<path class="run" pathLength="100" d="M16 2 H234 Q248 2 248 16 V48 Q248 62 234 62 H16 Q2 62 2 48 V16 Q2 2 16 2 Z"/>
+<rect x="14" y="14" width="36" height="36" rx="8" fill="#161b22" stroke="#21262d"/>
+<g transform="translate(22 22) scale(.8333)"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12" fill="#e6edf3"/></g>
+<text x="64" y="30" font-family="'Segoe UI',Inter,'Helvetica Neue',Arial,sans-serif" font-size="16" font-weight="700" fill="#e6edf3">Projects</text>
+<text x="64" y="47" font-family="'JetBrains Mono','Fira Code',Consolas,'Courier New',monospace" font-size="11" fill="#7d8590">see what I've shipped</text>
+<text class="ar" x="220" y="38" font-family="'Segoe UI',Inter,'Helvetica Neue',Arial,sans-serif" font-size="18" font-weight="700" fill="#34d399">→</text>
 </svg>

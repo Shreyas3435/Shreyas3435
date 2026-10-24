@@ -1,9 +1,10 @@
 """Generate the animated SVG assets for the GitHub profile README.
 
+Theme: "silicon" — matte black, engineering dot grid, silver type and
+circuit traces with a single emerald signal accent.
+
 Usage: python scripts/gen_assets.py assets assets/icons
 """
-import math
-import random
 import re
 import sys
 from pathlib import Path
@@ -14,235 +15,217 @@ OUT.mkdir(parents=True, exist_ok=True)
 
 SANS = "'Segoe UI',Inter,'Helvetica Neue',Arial,sans-serif"
 MONO = "'JetBrains Mono','Fira Code',Consolas,'Courier New',monospace"
-BLUE, PURPLE, GREEN, CYAN, PINK = "#58a6ff", "#a371f7", "#3fb950", "#39d0d8", "#f778ba"
+BG, PANEL, LINE = "#07090c", "#0d1117", "#21262d"
+SILVER, MUTED, TRACE = "#e6edf3", "#7d8590", "#1f3a33"
+SIGNAL = "#34d399"
 
 
 def icon_path(name):
     return re.search(r' d="([^"]+)"', (ICONS / f"{name}.svg").read_text()).group(1)
 
 
+def pts(*p):
+    return "M" + " L".join(f"{x:.0f} {y:.0f}" for x, y in p)
+
+
+DOTS = f'''<pattern id="dots" width="22" height="22" patternUnits="userSpaceOnUse"><circle cx="1" cy="1" r="1" fill="#1b2128"/></pattern>'''
+
+COMMON_CSS = f'''
+  .pulse{{stroke:{SIGNAL};stroke-width:2.2;fill:none;stroke-linecap:round;stroke-dasharray:5 95;animation:flow linear infinite}}
+  @keyframes flow{{from{{stroke-dashoffset:100}}to{{stroke-dashoffset:0}}}}
+  .trace{{stroke:{TRACE};stroke-width:2;fill:none;stroke-linejoin:round}}
+  .via{{fill:{BG};stroke:#2b4a42;stroke-width:2}}
+  .fade{{opacity:0;animation:fade .7s ease forwards}}
+  @keyframes fade{{from{{opacity:0;transform:translateY(6px)}}to{{opacity:1;transform:none}}}}
+  .ping{{animation:ping 2s ease-out infinite;transform-box:fill-box;transform-origin:center}}
+  @keyframes ping{{from{{transform:scale(1);opacity:.7}}to{{transform:scale(3);opacity:0}}}}
+  .caret{{animation:blink 1s step-end infinite}}
+  @keyframes blink{{50%{{opacity:0}}}}
+'''
+
+
+def traces(paths, vias=()):
+    out = [f'<path class="trace" d="{d}"/>' for d in paths]
+    for i, d in enumerate(paths):
+        dur = 2.6 + (i * 0.37) % 2.2
+        out.append(f'<path class="pulse" pathLength="100" d="{d}" style="animation-duration:{dur:.2f}s;animation-delay:-{(i * 0.71) % dur:.2f}s"/>')
+    out += [f'<circle class="via" cx="{x:.0f}" cy="{y:.0f}" r="4.5"/>' for x, y in vias]
+    return "\n".join(out)
+
+
 # ---------------------------------------------------------------- hero
 def hero():
     W, H = 1200, 420
-    rnd = random.Random(7)
-    stars = [(rnd.uniform(0, W), rnd.uniform(0, H * 0.62), rnd.uniform(0.6, 1.8)) for _ in range(70)]
-    star_svg = "\n".join(
-        f'<circle cx="{x:.0f}" cy="{y:.0f}" r="{r:.1f}" fill="#c9d1d9" class="tw" style="animation-delay:{rnd.uniform(0, 4):.2f}s;animation-duration:{rnd.uniform(2.5, 5):.1f}s"/>'
-        for x, y, r in stars
-    )
+    cx, cy, half = 1010, 205, 65  # chip centre and half size
+    offs = [-40, -20, 0, 20, 40]
+    paths, vias = [], []
 
-    # Perspective grid: vertical lines converge on a vanishing point.
-    vx, vy, gy = W / 2, 250, 300
-    verticals = "\n".join(
-        f'<line x1="{vx + (i * 12):.0f}" y1="{gy}" x2="{vx + i * 140:.0f}" y2="{H}"/>' for i in range(-12, 13)
-    )
-    horizontals = "\n".join(f'<line x1="0" y1="{gy + (k ** 1.7) * 2.2:.1f}" x2="{W}" y2="{gy + (k ** 1.7) * 2.2:.1f}"/>' for k in range(1, 14))
+    # left pins fan out and run under the text block, ending in vias
+    for i, o in enumerate(offs):
+        y = cy + o
+        xt = 935 - (4 - i) * 10
+        yb = 360 + i * 12
+        paths.append(pts((cx - half, y), (xt, y), (xt - (yb - y), yb), (30 + i * 26, yb)))
+        vias.append((30 + i * 26, yb))
+    # right pins jog then leave the board
+    for i, o in enumerate(offs):
+        y = cy + o
+        paths.append(pts((cx + half, y), (1110, y), (1130, y + o * 0.6), (W, y + o * 0.6)))
+    # top and bottom pins
+    for j, o in enumerate(offs):
+        x = cx + o
+        paths.append(pts((x, cy - half), (x, 105), (x + o * 0.6, 85 - abs(o) * 0.2), (x + o * 0.6, 0)))
+        paths.append(pts((x, cy + half), (x, 305), (x + o * 0.6, 325), (x + o * 0.6, H)))
 
-    # Orbit system on the right.
-    cx, cy = 1010, 200
-    orbits = [
-        (60, 18, ["TS", "PY"], BLUE),
-        (98, 26, ["AI", "SQL", "MCP"], PURPLE),
-        (136, 34, ["SEC", "API", "UX", "CI"], GREEN),
-    ]
-    orbit_svg = []
-    for idx, (r, dur, labels, col) in enumerate(orbits):
-        nodes = []
-        for j, lab in enumerate(labels):
-            a = 2 * math.pi * j / len(labels) + idx
-            nx, ny = cx + r * math.cos(a), cy + r * math.sin(a)
-            w = 14 + 8 * len(lab)
-            nodes.append(
-                f'<g class="up" style="animation-duration:{dur}s">'
-                f'<rect x="{nx - w / 2:.1f}" y="{ny - 11:.1f}" width="{w}" height="22" rx="11" fill="#0d1117" stroke="{col}" stroke-width="1.4"/>'
-                f'<text x="{nx:.1f}" y="{ny + 4.5:.1f}" text-anchor="middle" font-family="{MONO}" font-size="12" font-weight="700" fill="{col}">{lab}</text></g>'
-            )
-        orbit_svg.append(
-            f'<circle cx="{cx}" cy="{cy}" r="{r}" fill="none" stroke="{col}" stroke-opacity=".28" stroke-dasharray="3 6"/>'
-            f'<g class="spin" style="animation-duration:{dur}s{";animation-direction:reverse" if idx == 1 else ""}">{"".join(nodes)}</g>'
-        )
-    # .up counter-rotates labels; reversed orbit needs reversed counter-rotation.
-    orbit_markup = "\n".join(orbit_svg).replace(
-        'class="up" style="animation-duration:26s"', 'class="up" style="animation-duration:26s;animation-direction:normal"'
-    )
+    pins = []
+    for o in offs:
+        pins += [
+            f'<rect x="{cx - half - 8}" y="{cy + o - 3}" width="8" height="6" rx="1"/>',
+            f'<rect x="{cx + half}" y="{cy + o - 3}" width="8" height="6" rx="1"/>',
+            f'<rect x="{cx + o - 3}" y="{cy - half - 8}" width="6" height="8" rx="1"/>',
+            f'<rect x="{cx + o - 3}" y="{cy + half}" width="6" height="8" rx="1"/>',
+        ]
 
     chips = ["TypeScript", "Python", "FastAPI", "Next.js", "PostgreSQL", "LLM Agents"]
     chip_svg, x = [], 72
     for i, c in enumerate(chips):
         w = 22 + 8.2 * len(c)
         chip_svg.append(
-            f'<g class="fade" style="animation-delay:{2.4 + i * 0.15:.2f}s">'
-            f'<rect x="{x:.0f}" y="262" width="{w:.0f}" height="28" rx="14" fill="#161b22" stroke="#30363d"/>'
-            f'<text x="{x + w / 2:.0f}" y="281" text-anchor="middle" font-family="{MONO}" font-size="12.5" fill="#c9d1d9">{c}</text></g>'
+            f'<g class="fade" style="animation-delay:{2.4 + i * 0.12:.2f}s">'
+            f'<rect x="{x:.0f}" y="262" width="{w:.0f}" height="28" rx="6" fill="{PANEL}" stroke="{LINE}"/>'
+            f'<text x="{x + w / 2:.0f}" y="281" text-anchor="middle" font-family="{MONO}" font-size="12.5" fill="#adbac7">{c}</text></g>'
         )
         x += w + 10
 
     name = "Shreyas Alva"
     return f'''<svg xmlns="http://www.w3.org/2000/svg" width="{W}" height="{H}" viewBox="0 0 {W} {H}" role="img" aria-label="Shreyas Alva, full-stack engineer building AI agents and secure systems">
 <defs>
-  <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#03050c"/><stop offset=".6" stop-color="#0a1024"/><stop offset="1" stop-color="#140b2e"/></linearGradient>
-  <linearGradient id="name" x1="0" y1="0" x2="1" y2="0" spreadMethod="repeat">
-    <stop offset="0" stop-color="{BLUE}"/><stop offset=".33" stop-color="{PURPLE}"/><stop offset=".66" stop-color="{CYAN}"/><stop offset="1" stop-color="{BLUE}"/>
-    <animateTransform attributeName="gradientTransform" type="translate" values="-1 0;0 0" dur="6s" repeatCount="indefinite"/>
+  {DOTS}
+  <linearGradient id="silver" x1="0" y1="0" x2="1" y2="0" spreadMethod="repeat">
+    <stop offset="0" stop-color="#c9d1d9"/><stop offset=".42" stop-color="#c9d1d9"/><stop offset=".5" stop-color="#ffffff"/><stop offset=".58" stop-color="#c9d1d9"/><stop offset="1" stop-color="#c9d1d9"/>
+    <animateTransform attributeName="gradientTransform" type="translate" values="-1 0;1 0" dur="7s" repeatCount="indefinite"/>
   </linearGradient>
-  <linearGradient id="gridFade" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff" stop-opacity="0"/><stop offset=".5" stop-color="#fff" stop-opacity=".9"/><stop offset="1" stop-color="#fff"/></linearGradient>
-  <mask id="gm"><rect x="0" y="300" width="{W}" height="{H - 300}" fill="url(#gridFade)"/></mask>
-  <radialGradient id="core"><stop offset="0" stop-color="#fff"/><stop offset=".35" stop-color="{BLUE}"/><stop offset="1" stop-color="{PURPLE}" stop-opacity="0"/></radialGradient>
-  <filter id="blur" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="60"/></filter>
-  <filter id="glow" x="-20%" y="-50%" width="140%" height="200%"><feGaussianBlur stdDeviation="6" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
-  <linearGradient id="scan" x1="0" x2="1"><stop offset="0" stop-color="{CYAN}" stop-opacity="0"/><stop offset=".5" stop-color="{CYAN}" stop-opacity=".35"/><stop offset="1" stop-color="{CYAN}" stop-opacity="0"/></linearGradient>
-  <clipPath id="frame"><rect width="{W}" height="{H}" rx="18"/></clipPath>
-  <clipPath id="type"><rect x="70" y="200" height="40" width="0"><animate attributeName="width" from="0" to="760" begin="1s" dur="1.6s" fill="freeze" calcMode="spline" keySplines=".3 0 .2 1" keyTimes="0;1"/></rect></clipPath>
+  <linearGradient id="die" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#1c2128"/><stop offset="1" stop-color="#0b0e12"/></linearGradient>
+  <radialGradient id="heat"><stop offset="0" stop-color="{SIGNAL}" stop-opacity=".18"/><stop offset="1" stop-color="{SIGNAL}" stop-opacity="0"/></radialGradient>
+  <linearGradient id="vign" x1="0" x2="1"><stop offset="0" stop-color="{BG}" stop-opacity=".0"/><stop offset=".55" stop-color="{BG}" stop-opacity="0"/><stop offset="1" stop-color="{BG}" stop-opacity=".35"/></linearGradient>
+  <clipPath id="frame"><rect width="{W}" height="{H}" rx="16"/></clipPath>
+  <clipPath id="type"><rect x="70" y="200" height="40" width="0"><animate attributeName="width" from="0" to="780" begin="1s" dur="1.6s" fill="freeze" calcMode="spline" keySplines=".3 0 .2 1" keyTimes="0;1"/></rect></clipPath>
 </defs>
-<style>
-  .tw{{animation:tw ease-in-out infinite}}
-  @keyframes tw{{0%,100%{{opacity:.15}}50%{{opacity:.9}}}}
-  .grid line{{stroke:{PURPLE};stroke-width:1;stroke-opacity:.55}}
-  .hmove{{animation:hm 2.4s linear infinite}}
-  @keyframes hm{{from{{transform:translateY(0)}}to{{transform:translateY(22px)}}}}
-  .blob{{animation:drift 18s ease-in-out infinite alternate}}
-  @keyframes drift{{from{{transform:translate(0,0)}}to{{transform:translate(80px,30px)}}}}
-  .spin{{transform-origin:{cx}px {cy}px;animation:spin linear infinite}}
-  .up{{transform-box:fill-box;transform-origin:center;animation:spin linear infinite reverse}}
-  @keyframes spin{{to{{transform:rotate(360deg)}}}}
-  .fade{{opacity:0;animation:fade .6s ease forwards}}
-  @keyframes fade{{from{{opacity:0;transform:translateY(8px)}}to{{opacity:1;transform:none}}}}
-  .g1{{animation:g1 5s steps(1) infinite}}.g2{{animation:g2 5s steps(1) infinite}}
-  @keyframes g1{{0%,90%,100%{{transform:none;opacity:0}}91%{{transform:translate(-4px,1px);opacity:.8}}93%{{transform:translate(3px,-2px);opacity:.8}}95%{{opacity:0}}}}
-  @keyframes g2{{0%,90%,100%{{transform:none;opacity:0}}92%{{transform:translate(4px,2px);opacity:.8}}94%{{transform:translate(-3px,0);opacity:.8}}96%{{opacity:0}}}}
-  .pulse{{animation:pulse 2s ease-out infinite;transform-box:fill-box;transform-origin:center}}
-  @keyframes pulse{{from{{transform:scale(1);opacity:.8}}to{{transform:scale(3.2);opacity:0}}}}
-  .scan{{animation:scan 7s ease-in-out infinite}}
-  @keyframes scan{{0%{{transform:translateX(-300px)}}60%,100%{{transform:translateX({W + 300}px)}}}}
-  .core{{animation:breathe 3s ease-in-out infinite;transform-box:fill-box;transform-origin:center}}
-  @keyframes breathe{{0%,100%{{transform:scale(1)}}50%{{transform:scale(1.12)}}}}
-  .caret{{animation:blink 1s step-end infinite}}
-  @keyframes blink{{50%{{opacity:0}}}}
+<style>{COMMON_CSS}
+  .ul{{stroke-dasharray:260;stroke-dashoffset:260;animation:draw 1.2s .9s cubic-bezier(.3,0,.2,1) forwards}}
+  @keyframes draw{{to{{stroke-dashoffset:0}}}}
+  .breathe{{animation:br 3.5s ease-in-out infinite}}
+  @keyframes br{{50%{{opacity:.45}}}}
+  .led{{animation:led 1.2s steps(2) infinite}}
+  @keyframes led{{50%{{fill:#0f3d2e}}}}
 </style>
 <g clip-path="url(#frame)">
-  <rect width="{W}" height="{H}" fill="url(#bg)"/>
-  <g filter="url(#blur)" opacity=".55">
-    <circle class="blob" cx="260" cy="120" r="150" fill="#1f6feb"/>
-    <circle class="blob" cx="900" cy="80" r="140" fill="#8957e5" style="animation-delay:-6s"/>
-    <circle class="blob" cx="620" cy="360" r="160" fill="#0e7490" style="animation-delay:-12s"/>
-  </g>
-  {star_svg}
-  <g class="grid" mask="url(#gm)">
-    {verticals}
-    <g class="hmove">{horizontals}</g>
-  </g>
-  <rect class="scan" x="0" y="0" width="240" height="{H}" fill="url(#scan)" opacity=".5"/>
+  <rect width="{W}" height="{H}" fill="{BG}"/>
+  <rect width="{W}" height="{H}" fill="url(#dots)"/>
+  <circle class="breathe" cx="{cx}" cy="{cy}" r="190" fill="url(#heat)"/>
+  {traces(paths, vias)}
+
+  <!-- chip -->
+  <g fill="#8b949e">{"".join(pins)}</g>
+  <rect x="{cx - half}" y="{cy - half}" width="{half * 2}" height="{half * 2}" rx="8" fill="url(#die)" stroke="#3d444d" stroke-width="1.5"/>
+  <rect x="{cx - half + 12}" y="{cy - half + 12}" width="{half * 2 - 24}" height="{half * 2 - 24}" rx="4" fill="none" stroke="#2d333b" stroke-dasharray="2 4"/>
+  <circle cx="{cx - half + 14}" cy="{cy - half + 14}" r="3" fill="#3d444d"/>
+  <text x="{cx}" y="{cy + 6}" text-anchor="middle" font-family="{SANS}" font-size="34" font-weight="800" fill="{SILVER}" letter-spacing="1">SA</text>
+  <text x="{cx}" y="{cy + 28}" text-anchor="middle" font-family="{MONO}" font-size="9.5" fill="{MUTED}" letter-spacing="1.5">ALVA·X1 · 2026</text>
+  <circle class="led" cx="{cx + half - 14}" cy="{cy + half - 14}" r="3" fill="{SIGNAL}"/>
+  <rect width="{W}" height="{H}" fill="url(#vign)"/>
 
   <!-- left column -->
-  <text x="72" y="92" font-family="{MONO}" font-size="15" fill="{GREEN}" class="fade" style="animation-delay:.2s">~/shreyas $ <tspan fill="#8b949e">./init --profile</tspan></text>
-  <g class="fade" style="animation-delay:.5s">
-    <text x="70" y="180" font-family="{SANS}" font-size="86" font-weight="800" letter-spacing="-2" fill="{CYAN}" class="g1">{name}</text>
-    <text x="70" y="180" font-family="{SANS}" font-size="86" font-weight="800" letter-spacing="-2" fill="{PINK}" class="g2">{name}</text>
-    <text x="70" y="180" font-family="{SANS}" font-size="86" font-weight="800" letter-spacing="-2" fill="url(#name)" filter="url(#glow)">{name}</text>
+  <text x="72" y="92" font-family="{MONO}" font-size="14" fill="{MUTED}" class="fade" style="animation-delay:.2s"><tspan fill="{SIGNAL}">$</tspan> whoami <tspan fill="#484f58">--verbose</tspan></text>
+  <g class="fade" style="animation-delay:.45s">
+    <text x="68" y="178" font-family="{SANS}" font-size="84" font-weight="800" letter-spacing="-2" fill="url(#silver)">{name}</text>
   </g>
+  <path class="ul" d="M72 196 H332" stroke="{SIGNAL}" stroke-width="3" stroke-linecap="round"/>
   <g clip-path="url(#type)">
-    <text x="72" y="226" font-family="{MONO}" font-size="18" letter-spacing="1.8" fill="#c9d1d9">FULL-STACK ENGINEER <tspan fill="{PURPLE}">//</tspan> AI AGENTS &amp; MCP <tspan fill="{PURPLE}">//</tspan> SECURE SYSTEMS<tspan class="caret" fill="{CYAN}"> _</tspan></text>
+    <text x="72" y="230" font-family="{MONO}" font-size="17" letter-spacing="1.5" fill="#adbac7">Full-Stack Engineer <tspan fill="#484f58">/</tspan> AI Agents &amp; MCP <tspan fill="#484f58">/</tspan> Secure Systems<tspan class="caret" fill="{SIGNAL}"> ▍</tspan></text>
   </g>
   {"".join(chip_svg)}
-  <g class="fade" style="animation-delay:3.4s">
-    <rect x="72" y="320" width="300" height="34" rx="17" fill="#0d1117" fill-opacity=".85" stroke="{GREEN}" stroke-opacity=".6"/>
-    <circle cx="94" cy="337" r="5" fill="{GREEN}"/><circle class="pulse" cx="94" cy="337" r="5" fill="{GREEN}"/>
-    <text x="110" y="342" font-family="{MONO}" font-size="13" fill="#e6edf3">open to collaborations &amp; ideas</text>
+  <g class="fade" style="animation-delay:3.2s">
+    <rect x="72" y="314" width="292" height="32" rx="6" fill="{PANEL}" stroke="{LINE}"/>
+    <circle cx="92" cy="330" r="4.5" fill="{SIGNAL}"/><circle class="ping" cx="92" cy="330" r="4.5" fill="{SIGNAL}"/>
+    <text x="106" y="335" font-family="{MONO}" font-size="12.5" fill="#adbac7">open to collaborations &amp; ideas</text>
   </g>
-
-  <!-- right column: orbit system -->
-  <g class="fade" style="animation-delay:.8s">
-    <circle class="core" cx="{cx}" cy="{cy}" r="46" fill="url(#core)" opacity=".9"/>
-    <circle cx="{cx}" cy="{cy}" r="30" fill="#0d1117" stroke="{BLUE}" stroke-width="2"/>
-    <text x="{cx}" y="{cy + 8}" text-anchor="middle" font-family="{SANS}" font-size="22" font-weight="800" fill="#e6edf3">SA</text>
-    {orbit_markup}
-  </g>
-  <rect x="1" y="1" width="{W - 2}" height="{H - 2}" rx="18" fill="none" stroke="#30363d"/>
+  <rect x=".5" y=".5" width="{W - 1}" height="{H - 1}" rx="16" fill="none" stroke="{LINE}"/>
 </g>
 </svg>'''
 
 
 # ------------------------------------------------------------- buttons
-def button(label, sub, icon_d, col, width=250):
+def button(label, sub, icon_d, width=250):
     H = 64
+    border = f"M16 2 H{width - 16} Q{width - 2} 2 {width - 2} 16 V{H - 16} Q{width - 2} {H - 2} {width - 16} {H - 2} H16 Q2 {H - 2} 2 {H - 16} V16 Q2 2 16 2 Z"
     return f'''<svg xmlns="http://www.w3.org/2000/svg" width="{width}" height="{H}" viewBox="0 0 {width} {H}" role="img" aria-label="{label}">
-<defs>
-  <linearGradient id="b" x1="0" y1="0" x2="1" y2="1">
-    <stop offset="0" stop-color="{col}"/><stop offset=".5" stop-color="{PURPLE}"/><stop offset="1" stop-color="{CYAN}"/>
-    <animateTransform attributeName="gradientTransform" type="rotate" values="0 .5 .5;360 .5 .5" dur="4s" repeatCount="indefinite"/>
-  </linearGradient>
-  <linearGradient id="sh" x1="0" x2="1"><stop offset="0" stop-color="#fff" stop-opacity="0"/><stop offset=".5" stop-color="#fff" stop-opacity=".14"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></linearGradient>
-  <clipPath id="c"><rect x="2" y="2" width="{width - 4}" height="{H - 4}" rx="14"/></clipPath>
-</defs>
-<style>.sh{{animation:sh 3.5s ease-in-out infinite}}@keyframes sh{{0%{{transform:translateX(-120px)}}50%,100%{{transform:translateX({width + 40}px)}}}}
-.ar{{animation:ar 1.6s ease-in-out infinite}}@keyframes ar{{50%{{transform:translateX(4px)}}}}</style>
-<rect x="2" y="2" width="{width - 4}" height="{H - 4}" rx="14" fill="#0b0f19"/>
-<g clip-path="url(#c)"><rect class="sh" x="0" y="0" width="90" height="{H}" fill="url(#sh)"/></g>
-<rect x="2" y="2" width="{width - 4}" height="{H - 4}" rx="14" fill="none" stroke="url(#b)" stroke-width="2"/>
-<rect x="16" y="14" width="36" height="36" rx="10" fill="{col}" fill-opacity=".14"/>
-<g transform="translate(24 22) scale(.8333)"><path d="{icon_d}" fill="{col}"/></g>
-<text x="66" y="30" font-family="{SANS}" font-size="16" font-weight="700" fill="#e6edf3">{label}</text>
-<text x="66" y="47" font-family="{MONO}" font-size="11" fill="#8b949e">{sub}</text>
-<text class="ar" x="{width - 30}" y="38" font-family="{SANS}" font-size="18" font-weight="700" fill="{col}">→</text>
+<style>
+  .run{{fill:none;stroke:{SIGNAL};stroke-width:2;stroke-linecap:round;stroke-dasharray:8 92;animation:r 4s linear infinite}}
+  @keyframes r{{from{{stroke-dashoffset:100}}to{{stroke-dashoffset:0}}}}
+  .ar{{animation:ar 1.8s ease-in-out infinite}}@keyframes ar{{50%{{transform:translateX(4px)}}}}
+</style>
+<path d="{border}" fill="{PANEL}" stroke="{LINE}" stroke-width="1.5"/>
+<path class="run" pathLength="100" d="{border}"/>
+<rect x="14" y="14" width="36" height="36" rx="8" fill="#161b22" stroke="{LINE}"/>
+<g transform="translate(22 22) scale(.8333)"><path d="{icon_d}" fill="{SILVER}"/></g>
+<text x="64" y="30" font-family="{SANS}" font-size="16" font-weight="700" fill="{SILVER}">{label}</text>
+<text x="64" y="47" font-family="{MONO}" font-size="11" fill="{MUTED}">{sub}</text>
+<text class="ar" x="{width - 30}" y="38" font-family="{SANS}" font-size="18" font-weight="700" fill="{SIGNAL}">→</text>
 </svg>'''
 
 
 # ----------------------------------------------------- section headers
-def header(idx, title, hint, col):
-    W, H = 900, 64
-    x0 = 68 + 15 * len(title) + 40
+def header(idx, title, hint):
+    W, H = 900, 72
+    x0 = 80 + 14 * len(title) + 40
+    trace = pts((x0, 30), (W - 120, 30), (W - 100, 50), (W - 24, 50))
     return f'''<svg xmlns="http://www.w3.org/2000/svg" width="{W}" height="{H}" viewBox="0 0 {W} {H}" role="img" aria-label="{title}">
-<defs>
-  <linearGradient id="t" x1="0" x2="1"><stop offset="0" stop-color="{col}"/><stop offset="1" stop-color="{PURPLE}"/></linearGradient>
-  <linearGradient id="l" x1="{x0}" x2="{W}" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="{col}"/><stop offset=".6" stop-color="{PURPLE}" stop-opacity=".6"/><stop offset="1" stop-color="{PURPLE}" stop-opacity="0"/></linearGradient>
-</defs>
-<style>
-  .ln{{stroke-dasharray:900;stroke-dashoffset:900;animation:draw 1.6s .3s cubic-bezier(.3,0,.2,1) forwards}}
-  @keyframes draw{{to{{stroke-dashoffset:0}}}}
-  .dot{{animation:run 4s 1.9s ease-in-out infinite;opacity:0}}
-  @keyframes run{{0%{{transform:translateX(0);opacity:0}}10%{{opacity:1}}90%{{opacity:1}}100%{{transform:translateX({W - x0 - 20}px);opacity:0}}}}
-  .in{{animation:in .6s ease both}}
-  @keyframes in{{from{{opacity:0;transform:translateX(-10px)}}to{{opacity:1;transform:none}}}}
-  .cur{{animation:b 1s step-end infinite}}@keyframes b{{50%{{opacity:0}}}}
+<defs>{DOTS}</defs>
+<style>{COMMON_CSS}
+  .draw{{stroke-dasharray:1000;stroke-dashoffset:1000;animation:d 1.6s .3s cubic-bezier(.3,0,.2,1) forwards}}
+  @keyframes d{{to{{stroke-dashoffset:0}}}}
 </style>
-<g class="in">
-  <rect x="1" y="12" width="52" height="30" rx="8" fill="{col}" fill-opacity=".12" stroke="{col}" stroke-opacity=".7"/>
-  <text x="27" y="32" text-anchor="middle" font-family="{MONO}" font-size="14" font-weight="700" fill="{col}">{idx}</text>
-  <text x="68" y="36" font-family="{SANS}" font-size="26" font-weight="800" fill="url(#t)">{title}<tspan class="cur" fill="{col}">▍</tspan></text>
-  <text x="68" y="56" font-family="{MONO}" font-size="12" fill="#8b949e">{hint}</text>
+<rect x=".5" y=".5" width="{W - 1}" height="{H - 1}" rx="12" fill="{BG}" stroke="{LINE}"/>
+<rect x=".5" y=".5" width="{W - 1}" height="{H - 1}" rx="12" fill="url(#dots)"/>
+<g class="fade">
+  <rect x="18" y="20" width="44" height="32" rx="6" fill="{PANEL}" stroke="#2b4a42"/>
+  <text x="40" y="41" text-anchor="middle" font-family="{MONO}" font-size="14" font-weight="700" fill="{SIGNAL}">{idx}</text>
+  <text x="80" y="38" font-family="{SANS}" font-size="24" font-weight="800" fill="{SILVER}">{title}<tspan class="caret" fill="{SIGNAL}" font-weight="400">▍</tspan></text>
+  <text x="80" y="57" font-family="{MONO}" font-size="12" fill="{MUTED}">{hint}</text>
 </g>
-<line class="ln" x1="{x0}" y1="27" x2="{W}" y2="27" stroke="url(#l)" stroke-width="2"/>
-<circle class="dot" cx="{x0}" cy="27" r="3.5" fill="{col}"/>
+<path class="trace draw" d="{trace}"/>
+<path class="pulse" pathLength="100" d="{trace}" style="animation-duration:3.2s;animation-delay:1.9s"/>
+<circle class="via" cx="{x0}" cy="30" r="4"/><circle class="via" cx="{W - 24}" cy="50" r="4"/>
 </svg>'''
 
 
 # --------------------------------------------------------------- footer
 def footer():
-    W, H = 1200, 150
+    W, H = 1200, 140
     words = ["Building.", "Learning.", "Improving.", "Repeat."]
-    cols = [BLUE, PURPLE, CYAN, GREEN]
-    spans, x = [], 0
-    for i, (w, c) in enumerate(zip(words, cols)):
-        spans.append(f'<tspan fill="{c}" class="w" style="animation-delay:{i * 0.5:.1f}s">{w} </tspan>')
-    verticals = "\n".join(f'<line x1="{600 + i * 12}" y1="0" x2="{600 + i * 120}" y2="{H}"/>' for i in range(-14, 15))
+    spans = "".join(
+        f'<tspan class="w" style="animation-delay:{i * 0.8:.1f}s">{w} </tspan>' for i, w in enumerate(words)
+    )
+    paths = [
+        pts((0, 30), (140, 30), (170, 60), (260, 60)),
+        pts((0, 110), (110, 110), (140, 80), (230, 80)),
+        pts((W, 30), (W - 140, 30), (W - 170, 60), (W - 260, 60)),
+        pts((W, 110), (W - 110, 110), (W - 140, 80), (W - 230, 80)),
+    ]
+    vias = [(260, 60), (230, 80), (W - 260, 60), (W - 230, 80)]
     return f'''<svg xmlns="http://www.w3.org/2000/svg" width="{W}" height="{H}" viewBox="0 0 {W} {H}" role="img" aria-label="Building. Learning. Improving. Repeat.">
-<defs>
-  <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#140b2e"/><stop offset="1" stop-color="#03050c"/></linearGradient>
-  <linearGradient id="f" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></linearGradient>
-  <mask id="m"><rect width="{W}" height="{H}" fill="url(#f)"/></mask>
-  <clipPath id="c"><rect width="{W}" height="{H}" rx="18"/></clipPath>
-</defs>
-<style>
-  .grid line{{stroke:{PURPLE};stroke-opacity:.45}}
-  .mv{{animation:mv 2.4s linear infinite}}@keyframes mv{{to{{transform:translateY(-20px)}}}}
-  .w{{animation:w 4s ease-in-out infinite}}@keyframes w{{0%,100%{{opacity:.35}}20%,40%{{opacity:1}}}}
+<defs>{DOTS}<clipPath id="c"><rect width="{W}" height="{H}" rx="16"/></clipPath></defs>
+<style>{COMMON_CSS}
+  .w{{fill:#484f58;animation:w 3.2s ease-in-out infinite}}
+  @keyframes w{{0%,100%{{fill:#484f58}}15%,35%{{fill:{SILVER}}}}}
 </style>
 <g clip-path="url(#c)">
-  <rect width="{W}" height="{H}" fill="url(#bg)"/>
-  <g class="grid" mask="url(#m)">{verticals}<g class="mv">{"".join(f'<line x1="0" y1="{20 * k}" x2="{W}" y2="{20 * k}"/>' for k in range(0, 10))}</g></g>
-  <text x="600" y="72" text-anchor="middle" font-family="{SANS}" font-size="30" font-weight="800" letter-spacing="1">{"".join(spans)}</text>
-  <text x="600" y="104" text-anchor="middle" font-family="{MONO}" font-size="13" fill="#8b949e">thanks for stopping by — star something you like ⭐</text>
-  <rect x="1" y="1" width="{W - 2}" height="{H - 2}" rx="18" fill="none" stroke="#30363d"/>
+  <rect width="{W}" height="{H}" fill="{BG}"/><rect width="{W}" height="{H}" fill="url(#dots)"/>
+  {traces(paths, vias)}
+  <text x="600" y="70" text-anchor="middle" font-family="{SANS}" font-size="28" font-weight="800" letter-spacing=".5">{spans}</text>
+  <text x="600" y="100" text-anchor="middle" font-family="{MONO}" font-size="12.5" fill="{MUTED}"><tspan fill="{SIGNAL}">●</tspan> thanks for stopping by — star something you like</text>
+  <rect x=".5" y=".5" width="{W - 1}" height="{H - 1}" rx="16" fill="none" stroke="{LINE}"/>
 </g>
 </svg>'''
 
@@ -251,23 +234,23 @@ def footer():
 (OUT / "footer.svg").write_text(footer())
 
 buttons = {
-    "btn-linkedin": ("LinkedIn", "let's connect", icon_path("linkedin"), "#4c9aff"),
-    "btn-portfolio": ("Portfolio", "portfolio.vercel.app", icon_path("vercel"), "#e6edf3"),
-    "btn-projects": ("Projects", "see what I've shipped", icon_path("github"), GREEN),
+    "btn-linkedin": ("LinkedIn", "let's connect", icon_path("linkedin")),
+    "btn-portfolio": ("Portfolio", "portfolio.vercel.app", icon_path("vercel")),
+    "btn-projects": ("Projects", "see what I've shipped", icon_path("github")),
 }
 for fname, args in buttons.items():
     (OUT / f"{fname}.svg").write_text(button(*args))
 
 headers = [
-    ("01", "About me", "const shreyas = new Engineer()", BLUE),
-    ("02", "Now building", "git log --since='this month'", PURPLE),
-    ("03", "Tech stack", "cat package.json | jq .deps", CYAN),
-    ("04", "Featured projects", "ls ~/projects --sort=impact", GREEN),
-    ("05", "GitHub analytics", "gh api /users/Shreyas3435", PINK),
-    ("06", "Recent activity", "tail -f ~/.activity.log", "#d29922"),
+    ("01", "About me", "const shreyas = new Engineer()"),
+    ("02", "Now building", "git log --since='this month'"),
+    ("03", "Tech stack", "cat package.json | jq .deps"),
+    ("04", "Featured projects", "ls ~/projects --sort=impact"),
+    ("05", "GitHub analytics", "gh api /users/Shreyas3435"),
+    ("06", "Recent activity", "tail -f ~/.activity.log"),
 ]
-for idx, title, hint, col in headers:
+for idx, title, hint in headers:
     slug = title.lower().replace(" ", "-")
-    (OUT / f"h-{idx}-{slug}.svg").write_text(header(idx, title, hint, col))
+    (OUT / f"h-{idx}-{slug}.svg").write_text(header(idx, title, hint))
 
 print("\n".join(sorted(p.name for p in OUT.glob("*.svg"))))

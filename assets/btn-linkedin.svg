@@ -1,20 +1,14 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="250" height="64" viewBox="0 0 250 64" role="img" aria-label="LinkedIn">
-<defs>
-  <linearGradient id="b" x1="0" y1="0" x2="1" y2="1">
-    <stop offset="0" stop-color="#4c9aff"/><stop offset=".5" stop-color="#a371f7"/><stop offset="1" stop-color="#39d0d8"/>
-    <animateTransform attributeName="gradientTransform" type="rotate" values="0 .5 .5;360 .5 .5" dur="4s" repeatCount="indefinite"/>
-  </linearGradient>
-  <linearGradient id="sh" x1="0" x2="1"><stop offset="0" stop-color="#fff" stop-opacity="0"/><stop offset=".5" stop-color="#fff" stop-opacity=".14"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></linearGradient>
-  <clipPath id="c"><rect x="2" y="2" width="246" height="60" rx="14"/></clipPath>
-</defs>
-<style>.sh{animation:sh 3.5s ease-in-out infinite}@keyframes sh{0%{transform:translateX(-120px)}50%,100%{transform:translateX(290px)}}
-.ar{animation:ar 1.6s ease-in-out infinite}@keyframes ar{50%{transform:translateX(4px)}}</style>
-<rect x="2" y="2" width="246" height="60" rx="14" fill="#0b0f19"/>
-<g clip-path="url(#c)"><rect class="sh" x="0" y="0" width="90" height="64" fill="url(#sh)"/></g>
-<rect x="2" y="2" width="246" height="60" rx="14" fill="none" stroke="url(#b)" stroke-width="2"/>
-<rect x="16" y="14" width="36" height="36" rx="10" fill="#4c9aff" fill-opacity=".14"/>
-<g transform="translate(24 22) scale(.8333)"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" fill="#4c9aff"/></g>
-<text x="66" y="30" font-family="'Segoe UI',Inter,'Helvetica Neue',Arial,sans-serif" font-size="16" font-weight="700" fill="#e6edf3">LinkedIn</text>
-<text x="66" y="47" font-family="'JetBrains Mono','Fira Code',Consolas,'Courier New',monospace" font-size="11" fill="#8b949e">let's connect</text>
-<text class="ar" x="220" y="38" font-family="'Segoe UI',Inter,'Helvetica Neue',Arial,sans-serif" font-size="18" font-weight="700" fill="#4c9aff">→</text>
+<style>
+  .run{fill:none;stroke:#34d399;stroke-width:2;stroke-linecap:round;stroke-dasharray:8 92;animation:r 4s linear infinite}
+  @keyframes r{from{stroke-dashoffset:100}to{stroke-dashoffset:0}}
+  .ar{animation:ar 1.8s ease-in-out infinite}@keyframes ar{50%{transform:translateX(4px)}}
+</style>
+<path d="M16 2 H234 Q248 2 248 16 V48 Q248 62 234 62 H16 Q2 62 2 48 V16 Q2 2 16 2 Z" fill="#0d1117" stroke="#21262d" stroke-width="1.5"/>
+<path class="run" pathLength="100" d="M16 2 H234 Q248 2 248 16 V48 Q248 62 234 62 H16 Q2 62 2 48 V16 Q2 2 16 2 Z"/>
+<rect x="14" y="14" width="36" height="36" rx="8" fill="#161b22" stroke="#21262d"/>
+<g transform="translate(22 22) scale(.8333)"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" fill="#e6edf3"/></g>
+<text x="64" y="30" font-family="'Segoe UI',Inter,'Helvetica Neue',Arial,sans-serif" font-size="16" font-weight="700" fill="#e6edf3">LinkedIn</text>
+<text x="64" y="47" font-family="'JetBrains Mono','Fira Code',Consolas,'Courier New',monospace" font-size="11" fill="#7d8590">let's connect</text>
+<text class="ar" x="220" y="38" font-family="'Segoe UI',Inter,'Helvetica Neue',Arial,sans-serif" font-size="18" font-weight="700" fill="#34d399">→</text>
 </svg>
