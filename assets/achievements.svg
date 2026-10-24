@@ -25,10 +25,10 @@
   <polygon transform="translate(52 42)" points="0.0,-30.0 26.0,-15.0 26.0,15.0 0.0,30.0 -26.0,15.0 -26.0,-15.0" fill="url(#g3)" stroke="#ffd76a" stroke-width="2"/>
   <text x="52" y="50" text-anchor="middle" font-family="'Segoe UI',Inter,'Helvetica Neue',Arial,sans-serif" font-size="22" font-weight="800" fill="#07090c">5</text>
   <text x="100" y="36" font-family="'JetBrains Mono','Fira Code',Consolas,'Courier New',monospace" font-size="11" fill="#7d8590" letter-spacing="2">PLAYER LEVEL</text>
-  <text x="100" y="62" font-family="'Segoe UI',Inter,'Helvetica Neue',Arial,sans-serif" font-size="24" font-weight="800" fill="#e6edf3">Level 5 <tspan font-size="15" font-weight="600" fill="#7d8590">· 4,688 XP · 8/8 unlocked</tspan></text>
-  <text x="1128" y="36" text-anchor="end" font-family="'JetBrains Mono','Fira Code',Consolas,'Courier New',monospace" font-size="11" fill="#7d8590">68% to level 6</text>
+  <text x="100" y="62" font-family="'Segoe UI',Inter,'Helvetica Neue',Arial,sans-serif" font-size="24" font-weight="800" fill="#e6edf3">Level 5 <tspan font-size="15" font-weight="600" fill="#7d8590">· 4,691 XP · 8/8 unlocked</tspan></text>
+  <text x="1128" y="36" text-anchor="end" font-family="'JetBrains Mono','Fira Code',Consolas,'Courier New',monospace" font-size="11" fill="#7d8590">69% to level 6</text>
   <rect x="708" y="48" width="420" height="10" rx="5" fill="#161b22"/>
-  <rect class="fill" x="708" y="48" width="289.0" height="10" rx="5" fill="url(#xp)" style="animation-delay:.4s"/>
+  <rect class="fill" x="708" y="48" width="290.2" height="10" rx="5" fill="url(#xp)" style="animation-delay:.4s"/>
   <circle cx="692" cy="53" r="4" fill="#34d399"/><circle class="ping" cx="692" cy="53" r="4" fill="#34d399"/>
 </g>
 <g class="pop" style="animation-delay:0.00s">
@@ -43,10 +43,10 @@
     <text y="53" text-anchor="middle" font-family="'JetBrains Mono','Fira Code',Consolas,'Courier New',monospace" font-size="10" font-weight="700" fill="#e0a271" letter-spacing="1.5">BRONZE</text>
   </g>
   <text x="159.0" y="306" text-anchor="middle" font-family="'Segoe UI',Inter,'Helvetica Neue',Arial,sans-serif" font-size="18" font-weight="800" fill="#e6edf3">Commit Machine</text>
-  <text x="159.0" y="325" text-anchor="middle" font-family="'JetBrains Mono','Fira Code',Consolas,'Courier New',monospace" font-size="11" fill="#7d8590"><tspan fill="#e6edf3" font-weight="700">149</tspan> all-time contributions</text>
+  <text x="159.0" y="325" text-anchor="middle" font-family="'JetBrains Mono','Fira Code',Consolas,'Courier New',monospace" font-size="11" fill="#7d8590"><tspan fill="#e6edf3" font-weight="700">151</tspan> all-time contributions</text>
   <rect x="48" y="340" width="222" height="6" rx="3" fill="#161b22"/>
-  <rect class="fill" x="48" y="340" width="109.9" height="6" rx="3" fill="#34d399" style="animation-delay:0.60s"/>
-  <text x="159.0" y="364" text-anchor="middle" font-family="'JetBrains Mono','Fira Code',Consolas,'Courier New',monospace" font-size="10.5" fill="#7d8590">149 / 250 → silver</text>
+  <rect class="fill" x="48" y="340" width="112.1" height="6" rx="3" fill="#34d399" style="animation-delay:0.60s"/>
+  <text x="159.0" y="364" text-anchor="middle" font-family="'JetBrains Mono','Fira Code',Consolas,'Courier New',monospace" font-size="10.5" fill="#7d8590">151 / 250 → silver</text>
 </g><g class="pop" style="animation-delay:0.15s">
   <rect x="316" y="130" width="270" height="250" rx="14" fill="#0d1117" stroke="#21262d"/>
   <g transform="translate(451.0 212)">
