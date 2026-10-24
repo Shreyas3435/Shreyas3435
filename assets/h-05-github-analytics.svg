@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="64" viewBox="0 0 900 64" role="img" aria-label="GitHub analytics">
+<defs>
+  <linearGradient id="t" x1="0" x2="1"><stop offset="0" stop-color="#f778ba"/><stop offset="1" stop-color="#a371f7"/></linearGradient>
+  <linearGradient id="l" x1="348" x2="900" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#f778ba"/><stop offset=".6" stop-color="#a371f7" stop-opacity=".6"/><stop offset="1" stop-color="#a371f7" stop-opacity="0"/></linearGradient>
+</defs>
+<style>
+  .ln{stroke-dasharray:900;stroke-dashoffset:900;animation:draw 1.6s .3s cubic-bezier(.3,0,.2,1) forwards}
+  @keyframes draw{to{stroke-dashoffset:0}}
+  .dot{animation:run 4s 1.9s ease-in-out infinite;opacity:0}
+  @keyframes run{0%{transform:translateX(0);opacity:0}10%{opacity:1}90%{opacity:1}100%{transform:translateX(532px);opacity:0}}
+  .in{animation:in .6s ease both}
+  @keyframes in{from{opacity:0;transform:translateX(-10px)}to{opacity:1;transform:none}}
+  .cur{animation:b 1s step-end infinite}@keyframes b{50%{opacity:0}}
+</style>
+<g class="in">
+  <rect x="1" y="12" width="52" height="30" rx="8" fill="#f778ba" fill-opacity=".12" stroke="#f778ba" stroke-opacity=".7"/>
+  <text x="27" y="32" text-anchor="middle" font-family="'JetBrains Mono','Fira Code',Consolas,'Courier New',monospace" font-size="14" font-weight="700" fill="#f778ba">05</text>
+  <text x="68" y="36" font-family="'Segoe UI',Inter,'Helvetica Neue',Arial,sans-serif" font-size="26" font-weight="800" fill="url(#t)">GitHub analytics<tspan class="cur" fill="#f778ba">▍</tspan></text>
+  <text x="68" y="56" font-family="'JetBrains Mono','Fira Code',Consolas,'Courier New',monospace" font-size="12" fill="#8b949e">gh api /users/Shreyas3435</text>
+</g>
+<line class="ln" x1="348" y1="27" x2="900" y2="27" stroke="url(#l)" stroke-width="2"/>
+<circle class="dot" cx="348" cy="27" r="3.5" fill="#f778ba"/>
+</svg>
