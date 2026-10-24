@@ -156,6 +156,11 @@ const shreyas = {
 ## ⚡ Recent activity
 
 <!--START_SECTION:activity-->
+- 🔨 Pushed to [**Site**](https://github.com/Shreyas3435/Site) · TypeScript · 9 days ago
+- 🔨 Pushed to [**trek-saathi**](https://github.com/Shreyas3435/trek-saathi) · TypeScript · 45 days ago
+- 🔨 Pushed to [**portfolio**](https://github.com/Shreyas3435/portfolio) · TypeScript · 47 days ago
+- 🔨 Pushed to [**frappe-framework-Testing**](https://github.com/Shreyas3435/frappe-framework-Testing) · Python · 225 days ago
+- 🔨 Pushed to [**form_builder**](https://github.com/Shreyas3435/form_builder) · Shell · 236 days ago
 <!--END_SECTION:activity-->
 
 <br />
