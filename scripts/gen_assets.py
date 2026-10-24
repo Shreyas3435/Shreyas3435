@@ -253,4 +253,194 @@ for idx, title, hint in headers:
     slug = title.lower().replace(" ", "-")
     (OUT / f"h-{idx}-{slug}.svg").write_text(header(idx, title, hint))
 
+
+# ------------------------------------------------------- content panels
+def esc(t):
+    return t.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;")
+
+
+def wrap(text, width):
+    lines, cur = [], ""
+    for w in text.split():
+        if len(cur) + len(w) + 1 > width and cur:
+            lines.append(cur)
+            cur = w
+        else:
+            cur = f"{cur} {w}".strip()
+    return lines + [cur]
+
+
+def panel(W, H, body, extra_css=""):
+    return f"""<svg xmlns="http://www.w3.org/2000/svg" width="{W}" height="{H}" viewBox="0 0 {W} {H}">
+<defs>{DOTS}</defs>
+<style>{COMMON_CSS}{extra_css}</style>
+<rect x=".5" y=".5" width="{W - 1}" height="{H - 1}" rx="14" fill="{BG}" stroke="{LINE}"/>
+<rect x=".5" y=".5" width="{W - 1}" height="{H - 1}" rx="14" fill="url(#dots)"/>
+{body}
+</svg>"""
+
+
+def logo(name, x, y, size, fill=SILVER):
+    k = size / 24
+    return f'<g transform="translate({x:.1f} {y:.1f}) scale({k:.4f})"><path d="{icon_path(name)}" fill="{fill}"/></g>'
+
+
+def terminal():
+    W, H = 900, 250
+    rows = [
+        (54, f'<tspan fill="{SIGNAL}">$</tspan> whoami'),
+        (80, f'<tspan fill="{SILVER}" font-weight="700">Shreyas Alva</tspan> <tspan fill="#484f58">·</tspan> Full-Stack &amp; AI Engineer'),
+        (104, 'Building agent tooling, MCP servers and products that ship.'),
+        (140, f'<tspan fill="{SIGNAL}">$</tspan> cat focus.txt'),
+        (166, f'agents <tspan fill="#484f58">·</tspan> developer tooling <tspan fill="#484f58">·</tspan> secure web apps <tspan fill="#484f58">·</tspan> data pipelines'),
+        (202, f'<tspan fill="{SIGNAL}">$</tspan> echo $STATUS'),
+        (228, f'<tspan fill="{SIGNAL}">●</tspan> <tspan fill="{SILVER}">open to collaborations &amp; interesting problems</tspan><tspan class="caret" fill="{SIGNAL}"> ▍</tspan>'),
+    ]
+    body = [
+        f'<rect x=".5" y=".5" width="{W - 1}" height="30" rx="14" fill="{PANEL}"/><rect x=".5" y="16" width="{W - 1}" height="15" fill="{PANEL}"/>',
+        f'<line x1="0" y1="31" x2="{W}" y2="31" stroke="{LINE}"/>',
+        ''.join(f'<circle cx="{22 + i * 18}" cy="16" r="5" fill="#30363d"/>' for i in range(3)),
+        f'<text x="{W / 2}" y="20" text-anchor="middle" font-family="{MONO}" font-size="11" fill="{MUTED}">shreyas@silicon: ~</text>',
+    ]
+    for i, (y, t) in enumerate(rows):
+        body.append(f'<text class="fade" style="animation-delay:{0.25 + i * 0.35:.2f}s" x="24" y="{y}" font-family="{MONO}" font-size="14" fill="#adbac7">{t}</text>')
+    return panel(W, H, "\n".join(body))
+
+
+def about():
+    W = 900
+    fields = [
+        ("role", '"Full-Stack Developer"'),
+        ("focus", '["AI agents & MCP tooling", "secure web apps", "data pipelines"]'),
+        ("previously", '"Database Management Intern @ HCL Aftermarket Cloud"'),
+        ("education", '"B.E. Computer Science, VTU"'),
+        ("certified", '["Tata Group — Cybersecurity", "Mastercard — Cybersecurity"]'),
+        ("motto", '"Building. Learning. Improving. Repeat."'),
+    ]
+    lines = [f'<tspan fill="{SIGNAL}">const</tspan> <tspan fill="{SILVER}">shreyas</tspan> <tspan fill="#484f58">=</tspan> <tspan fill="#484f58">{{</tspan>']
+    for k, v in fields:
+        v = re.sub(r'"([^"]*)"', lambda m: f'<tspan fill="{SILVER}">"{esc(m.group(1))}"</tspan>', v)
+        lines.append(f'  <tspan fill="{MUTED}">{k}</tspan><tspan fill="#484f58">:</tspan>{" " * (12 - len(k))}<tspan fill="#484f58">{v}</tspan>,')
+    lines.append('<tspan fill="#484f58">};</tspan>')
+    H = 44 + len(lines) * 26
+    body = [f'<rect x=".5" y=".5" width="52" height="{H - 1}" rx="14" fill="{PANEL}"/><rect x="40" y=".5" width="13" height="{H - 1}" fill="{PANEL}"/><line x1="53" y1="0" x2="53" y2="{H}" stroke="{LINE}"/>']
+    for i, ln in enumerate(lines):
+        y = 34 + i * 26
+        body.append(f'<text x="38" y="{y}" text-anchor="end" font-family="{MONO}" font-size="12" fill="#484f58">{i + 1}</text>')
+        body.append(f'<text class="fade" style="animation-delay:{i * 0.08:.2f}s" x="72" y="{y}" font-family="{MONO}" font-size="14" fill="#484f58" xml:space="preserve">{ln}</text>')
+    return panel(W, H, "\n".join(body))
+
+
+def building():
+    W = 900
+    items = [
+        ("Agent infrastructure", "Compilers that turn OpenAPI specs into scored MCP tool surfaces, and gateways that serve knowledge bundles to agents with trust policies."),
+        ("Developer tooling", "Architecture maps of Python and TypeScript repos, CI quality gates and schema-driven data importers."),
+        ("Vertical marketplaces", "Verified-manufacturer discovery platforms for D2C founders in India."),
+        ("Personal automation", "A local assistant with a deterministic core and on-demand AI."),
+    ]
+    y, body = 28, []
+    rows = []
+    for title, desc in items:
+        dl = wrap(desc, 92)
+        rows.append((y, title, dl))
+        y += 34 + len(dl) * 19 + 18
+    H = y + 6
+    body.append(f'<path class="trace" d="M40 {rows[0][0] + 8} V{rows[-1][0] + 8}"/>')
+    body.append(f'<path class="pulse" pathLength="100" d="M40 {rows[0][0] + 8} V{rows[-1][0] + 8}" style="animation-duration:3.5s"/>')
+    for i, (ry, title, dl) in enumerate(rows):
+        body.append(f'<g class="fade" style="animation-delay:{i * 0.15:.2f}s">')
+        body.append(f'<rect x="31" y="{ry - 1}" width="18" height="18" rx="4" fill="{PANEL}" stroke="#2b4a42"/><circle cx="40" cy="{ry + 8}" r="3.5" fill="{SIGNAL}"/>')
+        body.append(f'<text x="68" y="{ry + 14}" font-family="{SANS}" font-size="18" font-weight="700" fill="{SILVER}">{title}</text>')
+        body.append(f'<rect x="{W - 132}" y="{ry - 2}" width="108" height="22" rx="11" fill="{PANEL}" stroke="#2b4a42"/><text x="{W - 78}" y="{ry + 13}" text-anchor="middle" font-family="{MONO}" font-size="10.5" fill="{SIGNAL}" letter-spacing="1">IN PROGRESS</text>')
+        for j, l in enumerate(dl):
+            body.append(f'<text x="68" y="{ry + 38 + j * 19}" font-family="{SANS}" font-size="14" fill="{MUTED}">{esc(l)}</text>')
+        body.append('</g>')
+    return panel(W, H, "\n".join(body))
+
+
+def stack():
+    W = 900
+    groups = [
+        ("LANGUAGES", [("typescript", "TypeScript"), ("javascript", "JavaScript"), ("python", "Python"), ("php", "PHP"), ("solidity", "Solidity")]),
+        ("FRONTEND", [("react", "React"), ("nextdotjs", "Next.js"), ("tailwindcss", "Tailwind"), ("html5", "HTML5"), ("css3", "CSS3")]),
+        ("BACKEND & DATA", [("fastapi", "FastAPI"), ("flask", "Flask"), ("nodedotjs", "Node.js"), ("postgresql", "PostgreSQL"), ("mongodb", "MongoDB"), ("sqlite", "SQLite"), ("supabase", "Supabase")]),
+        ("INFRA & TOOLING", [("docker", "Docker"), ("linux", "Linux"), ("git", "Git"), ("githubactions", "Actions"), ("vercel", "Vercel"), ("ethereum", "Ethereum")]),
+    ]
+    tw, th, gap, x0 = 88, 78, 10, 190
+    body, y, n = [], 22, 0
+    for label, techs in groups:
+        body.append(f'<text x="28" y="{y + th / 2 + 4}" font-family="{MONO}" font-size="11" fill="{MUTED}" letter-spacing="2">{esc(label)}</text>')
+        body.append(f'<path class="trace" d="M{28 + 9 * len(label) + 12} {y + th / 2} H{x0 - 10}"/>')
+        for i, (ic, name) in enumerate(techs):
+            x = x0 + i * (tw + gap)
+            body.append(f'<g class="fade" style="animation-delay:{n * 0.05:.2f}s">'
+                        f'<rect x="{x}" y="{y}" width="{tw}" height="{th}" rx="10" fill="{PANEL}" stroke="{LINE}"/>'
+                        f'{logo(ic, x + tw / 2 - 13, y + 14, 26)}'
+                        f'<text x="{x + tw / 2}" y="{y + th - 14}" text-anchor="middle" font-family="{MONO}" font-size="10.5" fill="{MUTED}">{name}</text></g>')
+            n += 1
+        y += th + 16
+    return panel(W, y + 6, "\n".join(body))
+
+
+def project_card(name, repo, desc, tags, live, w=440, h=250):
+    dl = wrap(desc, 46)[:4]
+    status = (f'<circle cx="28" cy="30" r="4.5" fill="{SIGNAL}"/><circle class="ping" cx="28" cy="30" r="4.5" fill="{SIGNAL}"/>'
+              f'<text x="40" y="34" font-family="{MONO}" font-size="10.5" fill="{SIGNAL}" letter-spacing="1.5">LIVE</text>') if live else \
+             (f'<circle cx="28" cy="30" r="4" fill="none" stroke="{MUTED}" stroke-width="1.5"/>'
+              f'<text x="40" y="34" font-family="{MONO}" font-size="10.5" fill="{MUTED}" letter-spacing="1.5">SOURCE</text>')
+    body = [status,
+            f'<text x="{w - 24}" y="34" text-anchor="end" font-family="{MONO}" font-size="10.5" fill="#484f58">{esc(repo)}</text>',
+            f'<text x="24" y="76" font-family="{SANS}" font-size="22" font-weight="800" fill="{SILVER}">{esc(name)}</text>',
+            f'<path d="M24 88 H72" stroke="{SIGNAL}" stroke-width="2" stroke-linecap="round"/>']
+    for i, l in enumerate(dl):
+        body.append(f'<text x="24" y="{114 + i * 20}" font-family="{SANS}" font-size="14" fill="{MUTED}">{esc(l)}</text>')
+    x = 24
+    for t in tags:
+        tw = 18 + 7.2 * len(t)
+        body.append(f'<rect x="{x:.0f}" y="{h - 52}" width="{tw:.0f}" height="24" rx="6" fill="{PANEL}" stroke="{LINE}"/>'
+                    f'<text x="{x + tw / 2:.0f}" y="{h - 36}" text-anchor="middle" font-family="{MONO}" font-size="11" fill="#adbac7">{esc(t)}</text>')
+        x += tw + 8
+    cta = "live demo" if live else "view code"
+    body.append(f'<text class="ar" x="{w - 24}" y="{h - 35}" text-anchor="end" font-family="{MONO}" font-size="12" font-weight="700" fill="{SIGNAL}">{cta} →</text>')
+    trace = pts((w - 1, 64), (w - 40, 64), (w - 60, 84), (w - 60, 120))
+    body.append(f'<path class="trace" d="{trace}"/><path class="pulse" pathLength="100" d="{trace}" style="animation-duration:3s"/><circle class="via" cx="{w - 60}" cy="120" r="4"/>')
+    return panel(w, h, "\n".join(body), ".ar{animation:ar 1.8s ease-in-out infinite}@keyframes ar{50%{transform:translateX(3px)}}")
+
+
+def mini_card(name, desc, tag, w=440, h=96):
+    body = [f'<text x="22" y="38" font-family="{SANS}" font-size="16" font-weight="700" fill="{SILVER}">{esc(name)}</text>',
+            f'<text x="{w - 22}" y="37" text-anchor="end" font-family="{MONO}" font-size="10.5" fill="{SIGNAL}" letter-spacing="1">{esc(tag)}</text>']
+    for i, l in enumerate(wrap(desc, 56)[:2]):
+        body.append(f'<text x="22" y="{62 + i * 18}" font-family="{SANS}" font-size="13" fill="{MUTED}">{esc(l)}</text>')
+    return panel(w, h, "\n".join(body))
+
+
+(OUT / "terminal.svg").write_text(terminal())
+(OUT / "about.svg").write_text(about())
+(OUT / "building.svg").write_text(building())
+(OUT / "stack.svg").write_text(stack())
+
+PROJECTS = {
+    "p-trek-saathi": ("Trek Saathi", "Shreyas3435/trek-saathi", "Discovery and booking platform for treks in the Western Ghats, with trekker, organizer and admin roles on one FastAPI + Postgres backend.", ["TypeScript", "FastAPI", "PostgreSQL"], True),
+    "p-blockchain-pharma": ("Blockchain in Pharma", "Shreyas3435/Blockchain_in_pharma", "Track-and-trace for medicines from manufacturer to customer, keeping quality and pricing transparent on-chain.", ["TypeScript", "Blockchain"], False),
+    "p-movie-pipeline": ("Movie Data Pipeline", "Shreyas3435/movie-data-pipeline", "ETL pipeline for movie analytics that pulls from the OMDb API, cleans the data and loads it into SQLite.", ["Python", "SQLite", "ETL"], False),
+    "p-portfolio": ("Portfolio", "Shreyas3435/portfolio", "My personal portfolio with projects, experience and contact details in one place.", ["TypeScript", "Next.js", "Vercel"], True),
+}
+for fname, args in PROJECTS.items():
+    (OUT / f"{fname}.svg").write_text(project_card(*args))
+
+MINI = {
+    "m-packet-analyzer": ("Network Packet Analyzer", "Captures and inspects network packets for protocol-level analysis.", "SECURITY"),
+    "m-image-encryption": ("Pixel Image Encryption", "Encrypts and decrypts images by manipulating pixel values.", "SECURITY"),
+    "m-password-checker": ("Password Complexity Checker", "Scores password strength against common complexity rules.", "SECURITY"),
+    "m-caesar-cipher": ("Caesar Cipher", "Classic shift cipher for encrypting and decrypting text.", "SECURITY"),
+    "m-hashing": ("Hashing", "PHP sign-up and login flow with hashed password storage.", "SECURITY"),
+    "m-content-search": ("Website Content Search", "Semantic search over website content with Weaviate vectors, Flask and React.", "AI · SEARCH"),
+    "m-ai-summary": ("Ai_Summary", "Dockerised AI document-summary service with a web frontend.", "AI"),
+    "m-artifact-editor": ("Artifact Editor", "Template-driven, autosaving user-story editor built as a Frappe app.", "FRAPPE"),
+}
+for fname, args in MINI.items():
+    (OUT / f"{fname}.svg").write_text(mini_card(*args))
+
 print("\n".join(sorted(p.name for p in OUT.glob("*.svg"))))
