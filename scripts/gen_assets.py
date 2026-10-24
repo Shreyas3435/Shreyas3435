@@ -246,8 +246,9 @@ headers = [
     ("02", "Now building", "git log --since='this month'"),
     ("03", "Tech stack", "cat package.json | jq .deps"),
     ("04", "Featured projects", "ls ~/projects --sort=impact"),
-    ("05", "GitHub analytics", "gh api /users/Shreyas3435"),
-    ("06", "Recent activity", "tail -f ~/.activity.log"),
+    ("05", "Achievements", "./unlock --all --honestly"),
+    ("06", "GitHub analytics", "gh api /users/Shreyas3435"),
+    ("07", "Recent activity", "tail -f ~/.activity.log"),
 ]
 for idx, title, hint in headers:
     slug = title.lower().replace(" ", "-")
