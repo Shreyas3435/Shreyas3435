@@ -1,0 +1,164 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="676" viewBox="0 0 1200 676" role="img" aria-label="Achievements: level 5, 8 of 8 unlocked">
+<defs>
+  <pattern id="dots" width="22" height="22" patternUnits="userSpaceOnUse"><circle cx="1" cy="1" r="1" fill="#1b2128"/></pattern>
+  <linearGradient id="g0" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#484f58"/><stop offset=".5" stop-color="#30363d"/><stop offset="1" stop-color="#484f58" stop-opacity=".7"/></linearGradient><linearGradient id="g1" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#e0a271"/><stop offset=".5" stop-color="#b07443"/><stop offset="1" stop-color="#e0a271" stop-opacity=".7"/></linearGradient><linearGradient id="g2" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#e6edf3"/><stop offset=".5" stop-color="#9aa4af"/><stop offset="1" stop-color="#e6edf3" stop-opacity=".7"/></linearGradient><linearGradient id="g3" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ffd76a"/><stop offset=".5" stop-color="#c99a2e"/><stop offset="1" stop-color="#ffd76a" stop-opacity=".7"/></linearGradient><linearGradient id="g4" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#b6f0ff"/><stop offset=".5" stop-color="#3fb8d6"/><stop offset="1" stop-color="#b6f0ff" stop-opacity=".7"/></linearGradient>
+  <clipPath id="hexclip"><polygon points="0.0,-50.0 43.3,-25.0 43.3,25.0 0.0,50.0 -43.3,25.0 -43.3,-25.0"/></clipPath>
+  <linearGradient id="xp" x1="0" x2="1"><stop offset="0" stop-color="#1f8f68"/><stop offset="1" stop-color="#34d399"/></linearGradient>
+</defs>
+<style>
+  .pop{opacity:0;animation:pop .6s cubic-bezier(.2,.8,.2,1.2) forwards}
+  @keyframes pop{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+  .glint{animation:glint 5s ease-in-out infinite}
+  @keyframes glint{0%{transform:skewX(-20deg) translateX(0)}30%,100%{transform:skewX(-20deg) translateX(200px)}}
+  .fill{transform-box:fill-box;transform-origin:left;transform:scaleX(0);animation:fill 1.2s cubic-bezier(.3,0,.2,1) forwards}
+  @keyframes fill{to{transform:scaleX(1)}}
+  .halo{animation:halo 2.4s ease-in-out infinite;transform-box:fill-box;transform-origin:center}
+  @keyframes halo{50%{transform:scale(1.12);opacity:.05}}
+  .ping{animation:ping 2s ease-out infinite;transform-box:fill-box;transform-origin:center}
+  @keyframes ping{from{transform:scale(1);opacity:.7}to{transform:scale(3);opacity:0}}
+</style>
+<rect x=".5" y=".5" width="1199" height="675" rx="16" fill="#07090c" stroke="#21262d"/>
+<rect x=".5" y=".5" width="1199" height="675" rx="16" fill="url(#dots)"/>
+
+<g transform="translate(24 24)">
+  <rect width="1152" height="84" rx="14" fill="#0d1117" stroke="#21262d"/>
+  <polygon transform="translate(52 42)" points="0.0,-30.0 26.0,-15.0 26.0,15.0 0.0,30.0 -26.0,15.0 -26.0,-15.0" fill="url(#g3)" stroke="#ffd76a" stroke-width="2"/>
+  <text x="52" y="50" text-anchor="middle" font-family="'Segoe UI',Inter,'Helvetica Neue',Arial,sans-serif" font-size="22" font-weight="800" fill="#07090c">5</text>
+  <text x="100" y="36" font-family="'JetBrains Mono','Fira Code',Consolas,'Courier New',monospace" font-size="11" fill="#7d8590" letter-spacing="2">PLAYER LEVEL</text>
+  <text x="100" y="62" font-family="'Segoe UI',Inter,'Helvetica Neue',Arial,sans-serif" font-size="24" font-weight="800" fill="#e6edf3">Level 5 <tspan font-size="15" font-weight="600" fill="#7d8590">· 4,688 XP · 8/8 unlocked</tspan></text>
+  <text x="1128" y="36" text-anchor="end" font-family="'JetBrains Mono','Fira Code',Consolas,'Courier New',monospace" font-size="11" fill="#7d8590">68% to level 6</text>
+  <rect x="708" y="48" width="420" height="10" rx="5" fill="#161b22"/>
+  <rect class="fill" x="708" y="48" width="289.0" height="10" rx="5" fill="url(#xp)" style="animation-delay:.4s"/>
+  <circle cx="692" cy="53" r="4" fill="#34d399"/><circle class="ping" cx="692" cy="53" r="4" fill="#34d399"/>
+</g>
+<g class="pop" style="animation-delay:0.00s">
+  <rect x="24" y="130" width="270" height="250" rx="14" fill="#0d1117" stroke="#21262d"/>
+  <g transform="translate(159.0 212)">
+    
+    <polygon points="0.0,-50.0 43.3,-25.0 43.3,25.0 0.0,50.0 -43.3,25.0 -43.3,-25.0" fill="url(#g1)" stroke="#e0a271" stroke-width="2"/>
+    <polygon points="0.0,-41.0 35.5,-20.5 35.5,20.5 0.0,41.0 -35.5,20.5 -35.5,-20.5" fill="#07090c" fill-opacity=".72" stroke="#b07443" stroke-width="1.2"/>
+    <g stroke="#e0a271" fill="#e0a271" stroke-linecap="round"><circle r="7" fill="none" stroke-width="3"/><path d="M-20 0H-7M7 0H20" stroke-width="3"/></g>
+    <g clip-path="url(#hexclip)"><rect class="glint" x="-90" y="-60" width="26" height="120" fill="#fff" opacity=".22" transform="skewX(-20)" style="animation-delay:1.20s"/></g>
+    <rect x="-34" y="40" width="68" height="18" rx="9" fill="#07090c" stroke="#b07443"/>
+    <text y="53" text-anchor="middle" font-family="'JetBrains Mono','Fira Code',Consolas,'Courier New',monospace" font-size="10" font-weight="700" fill="#e0a271" letter-spacing="1.5">BRONZE</text>
+  </g>
+  <text x="159.0" y="306" text-anchor="middle" font-family="'Segoe UI',Inter,'Helvetica Neue',Arial,sans-serif" font-size="18" font-weight="800" fill="#e6edf3">Commit Machine</text>
+  <text x="159.0" y="325" text-anchor="middle" font-family="'JetBrains Mono','Fira Code',Consolas,'Courier New',monospace" font-size="11" fill="#7d8590"><tspan fill="#e6edf3" font-weight="700">149</tspan> all-time contributions</text>
+  <rect x="48" y="340" width="222" height="6" rx="3" fill="#161b22"/>
+  <rect class="fill" x="48" y="340" width="109.9" height="6" rx="3" fill="#34d399" style="animation-delay:0.60s"/>
+  <text x="159.0" y="364" text-anchor="middle" font-family="'JetBrains Mono','Fira Code',Consolas,'Courier New',monospace" font-size="10.5" fill="#7d8590">149 / 250 → silver</text>
+</g><g class="pop" style="animation-delay:0.15s">
+  <rect x="316" y="130" width="270" height="250" rx="14" fill="#0d1117" stroke="#21262d"/>
+  <g transform="translate(451.0 212)">
+    <polygon class="halo" points="0.0,-58.0 50.2,-29.0 50.2,29.0 0.0,58.0 -50.2,29.0 -50.2,-29.0" fill="#ffd76a" opacity=".18" style="animation-delay:0.15s"/>
+    <polygon points="0.0,-50.0 43.3,-25.0 43.3,25.0 0.0,50.0 -43.3,25.0 -43.3,-25.0" fill="url(#g3)" stroke="#ffd76a" stroke-width="2"/>
+    <polygon points="0.0,-41.0 35.5,-20.5 35.5,20.5 0.0,41.0 -35.5,20.5 -35.5,-20.5" fill="#07090c" fill-opacity=".72" stroke="#c99a2e" stroke-width="1.2"/>
+    <g stroke="#ffd76a" fill="#ffd76a" stroke-linecap="round"><circle r="15" fill="none" stroke-width="3"/><path d="M0-9V0L7 5" fill="none" stroke-width="3"/></g>
+    <g clip-path="url(#hexclip)"><rect class="glint" x="-90" y="-60" width="26" height="120" fill="#fff" opacity=".22" transform="skewX(-20)" style="animation-delay:1.35s"/></g>
+    <rect x="-34" y="40" width="68" height="18" rx="9" fill="#07090c" stroke="#c99a2e"/>
+    <text y="53" text-anchor="middle" font-family="'JetBrains Mono','Fira Code',Consolas,'Courier New',monospace" font-size="10" font-weight="700" fill="#ffd76a" letter-spacing="1.5">GOLD</text>
+  </g>
+  <text x="451.0" y="306" text-anchor="middle" font-family="'Segoe UI',Inter,'Helvetica Neue',Arial,sans-serif" font-size="18" font-weight="800" fill="#e6edf3">Veteran</text>
+  <text x="451.0" y="325" text-anchor="middle" font-family="'JetBrains Mono','Fira Code',Consolas,'Courier New',monospace" font-size="11" fill="#7d8590"><tspan fill="#e6edf3" font-weight="700">5</tspan> years on GitHub</text>
+  <rect x="340" y="340" width="222" height="6" rx="3" fill="#161b22"/>
+  <rect class="fill" x="340" y="340" width="0.0" height="6" rx="3" fill="#34d399" style="animation-delay:0.75s"/>
+  <text x="451.0" y="364" text-anchor="middle" font-family="'JetBrains Mono','Fira Code',Consolas,'Courier New',monospace" font-size="10.5" fill="#7d8590">5 / 8 → diamond</text>
+</g><g class="pop" style="animation-delay:0.30s">
+  <rect x="608" y="130" width="270" height="250" rx="14" fill="#0d1117" stroke="#21262d"/>
+  <g transform="translate(743.0 212)">
+    <polygon class="halo" points="0.0,-58.0 50.2,-29.0 50.2,29.0 0.0,58.0 -50.2,29.0 -50.2,-29.0" fill="#ffd76a" opacity=".18" style="animation-delay:0.30s"/>
+    <polygon points="0.0,-50.0 43.3,-25.0 43.3,25.0 0.0,50.0 -43.3,25.0 -43.3,-25.0" fill="url(#g3)" stroke="#ffd76a" stroke-width="2"/>
+    <polygon points="0.0,-41.0 35.5,-20.5 35.5,20.5 0.0,41.0 -35.5,20.5 -35.5,-20.5" fill="#07090c" fill-opacity=".72" stroke="#c99a2e" stroke-width="1.2"/>
+    <g stroke="#ffd76a" fill="#ffd76a" stroke-linecap="round"><path d="M-8-10L-18 0L-8 10M8-10L18 0L8 10" fill="none" stroke-width="3"/></g>
+    <g clip-path="url(#hexclip)"><rect class="glint" x="-90" y="-60" width="26" height="120" fill="#fff" opacity=".22" transform="skewX(-20)" style="animation-delay:1.50s"/></g>
+    <rect x="-34" y="40" width="68" height="18" rx="9" fill="#07090c" stroke="#c99a2e"/>
+    <text y="53" text-anchor="middle" font-family="'JetBrains Mono','Fira Code',Consolas,'Courier New',monospace" font-size="10" font-weight="700" fill="#ffd76a" letter-spacing="1.5">GOLD</text>
+  </g>
+  <text x="743.0" y="306" text-anchor="middle" font-family="'Segoe UI',Inter,'Helvetica Neue',Arial,sans-serif" font-size="18" font-weight="800" fill="#e6edf3">Polyglot</text>
+  <text x="743.0" y="325" text-anchor="middle" font-family="'JetBrains Mono','Fira Code',Consolas,'Courier New',monospace" font-size="11" fill="#7d8590"><tspan fill="#e6edf3" font-weight="700">11</tspan> languages shipped</text>
+  <rect x="632" y="340" width="222" height="6" rx="3" fill="#161b22"/>
+  <rect class="fill" x="632" y="340" width="148.0" height="6" rx="3" fill="#34d399" style="animation-delay:0.90s"/>
+  <text x="743.0" y="364" text-anchor="middle" font-family="'JetBrains Mono','Fira Code',Consolas,'Courier New',monospace" font-size="10.5" fill="#7d8590">11 / 12 → diamond</text>
+</g><g class="pop" style="animation-delay:0.45s">
+  <rect x="900" y="130" width="270" height="250" rx="14" fill="#0d1117" stroke="#21262d"/>
+  <g transform="translate(1035.0 212)">
+    
+    <polygon points="0.0,-50.0 43.3,-25.0 43.3,25.0 0.0,50.0 -43.3,25.0 -43.3,-25.0" fill="url(#g2)" stroke="#e6edf3" stroke-width="2"/>
+    <polygon points="0.0,-41.0 35.5,-20.5 35.5,20.5 0.0,41.0 -35.5,20.5 -35.5,-20.5" fill="#07090c" fill-opacity=".72" stroke="#9aa4af" stroke-width="1.2"/>
+    <g stroke="#e6edf3" fill="#e6edf3" stroke-linecap="round"><path d="M0-14L16-6L0 2L-16-6Z M-16 2L0 10L16 2 M-16 9L0 17L16 9" fill="none" stroke-width="2.6" stroke-linejoin="round"/></g>
+    <g clip-path="url(#hexclip)"><rect class="glint" x="-90" y="-60" width="26" height="120" fill="#fff" opacity=".22" transform="skewX(-20)" style="animation-delay:1.65s"/></g>
+    <rect x="-34" y="40" width="68" height="18" rx="9" fill="#07090c" stroke="#9aa4af"/>
+    <text y="53" text-anchor="middle" font-family="'JetBrains Mono','Fira Code',Consolas,'Courier New',monospace" font-size="10" font-weight="700" fill="#e6edf3" letter-spacing="1.5">SILVER</text>
+  </g>
+  <text x="1035.0" y="306" text-anchor="middle" font-family="'Segoe UI',Inter,'Helvetica Neue',Arial,sans-serif" font-size="18" font-weight="800" fill="#e6edf3">Architect</text>
+  <text x="1035.0" y="325" text-anchor="middle" font-family="'JetBrains Mono','Fira Code',Consolas,'Courier New',monospace" font-size="11" fill="#7d8590"><tspan fill="#e6edf3" font-weight="700">19</tspan> public repositories</text>
+  <rect x="924" y="340" width="222" height="6" rx="3" fill="#161b22"/>
+  <rect class="fill" x="924" y="340" width="59.2" height="6" rx="3" fill="#34d399" style="animation-delay:1.05s"/>
+  <text x="1035.0" y="364" text-anchor="middle" font-family="'JetBrains Mono','Fira Code',Consolas,'Courier New',monospace" font-size="10.5" fill="#7d8590">19 / 30 → gold</text>
+</g><g class="pop" style="animation-delay:0.60s">
+  <rect x="24" y="394" width="270" height="250" rx="14" fill="#0d1117" stroke="#21262d"/>
+  <g transform="translate(159.0 476)">
+    
+    <polygon points="0.0,-50.0 43.3,-25.0 43.3,25.0 0.0,50.0 -43.3,25.0 -43.3,-25.0" fill="url(#g1)" stroke="#e0a271" stroke-width="2"/>
+    <polygon points="0.0,-41.0 35.5,-20.5 35.5,20.5 0.0,41.0 -35.5,20.5 -35.5,-20.5" fill="#07090c" fill-opacity=".72" stroke="#b07443" stroke-width="1.2"/>
+    <g stroke="#e0a271" fill="#e0a271" stroke-linecap="round"><circle cx="-8" cy="-12" r="4" fill="none" stroke-width="2.6"/><circle cx="-8" cy="13" r="4" fill="none" stroke-width="2.6"/><circle cx="10" cy="2" r="4" fill="none" stroke-width="2.6"/><path d="M-8-8V9M-8-4C-8 2 0 2 6 2" fill="none" stroke-width="2.6"/></g>
+    <g clip-path="url(#hexclip)"><rect class="glint" x="-90" y="-60" width="26" height="120" fill="#fff" opacity=".22" transform="skewX(-20)" style="animation-delay:1.80s"/></g>
+    <rect x="-34" y="40" width="68" height="18" rx="9" fill="#07090c" stroke="#b07443"/>
+    <text y="53" text-anchor="middle" font-family="'JetBrains Mono','Fira Code',Consolas,'Courier New',monospace" font-size="10" font-weight="700" fill="#e0a271" letter-spacing="1.5">BRONZE</text>
+  </g>
+  <text x="159.0" y="570" text-anchor="middle" font-family="'Segoe UI',Inter,'Helvetica Neue',Arial,sans-serif" font-size="18" font-weight="800" fill="#e6edf3">Shipper</text>
+  <text x="159.0" y="589" text-anchor="middle" font-family="'JetBrains Mono','Fira Code',Consolas,'Courier New',monospace" font-size="11" fill="#7d8590"><tspan fill="#e6edf3" font-weight="700">2</tspan> merged pull requests</text>
+  <rect x="48" y="604" width="222" height="6" rx="3" fill="#161b22"/>
+  <rect class="fill" x="48" y="604" width="0.0" height="6" rx="3" fill="#34d399" style="animation-delay:1.20s"/>
+  <text x="159.0" y="628" text-anchor="middle" font-family="'JetBrains Mono','Fira Code',Consolas,'Courier New',monospace" font-size="10.5" fill="#7d8590">2 / 16 → silver</text>
+</g><g class="pop" style="animation-delay:0.75s">
+  <rect x="316" y="394" width="270" height="250" rx="14" fill="#0d1117" stroke="#21262d"/>
+  <g transform="translate(451.0 476)">
+    
+    <polygon points="0.0,-50.0 43.3,-25.0 43.3,25.0 0.0,50.0 -43.3,25.0 -43.3,-25.0" fill="url(#g2)" stroke="#e6edf3" stroke-width="2"/>
+    <polygon points="0.0,-41.0 35.5,-20.5 35.5,20.5 0.0,41.0 -35.5,20.5 -35.5,-20.5" fill="#07090c" fill-opacity=".72" stroke="#9aa4af" stroke-width="1.2"/>
+    <g stroke="#e6edf3" fill="#e6edf3" stroke-linecap="round"><path d="M3-17L-11 3H0L-3 17L11-3H0Z" stroke-width="2.4" stroke-linejoin="round"/></g>
+    <g clip-path="url(#hexclip)"><rect class="glint" x="-90" y="-60" width="26" height="120" fill="#fff" opacity=".22" transform="skewX(-20)" style="animation-delay:1.95s"/></g>
+    <rect x="-34" y="40" width="68" height="18" rx="9" fill="#07090c" stroke="#9aa4af"/>
+    <text y="53" text-anchor="middle" font-family="'JetBrains Mono','Fira Code',Consolas,'Courier New',monospace" font-size="10" font-weight="700" fill="#e6edf3" letter-spacing="1.5">SILVER</text>
+  </g>
+  <text x="451.0" y="570" text-anchor="middle" font-family="'Segoe UI',Inter,'Helvetica Neue',Arial,sans-serif" font-size="18" font-weight="800" fill="#e6edf3">Live Wire</text>
+  <text x="451.0" y="589" text-anchor="middle" font-family="'JetBrains Mono','Fira Code',Consolas,'Courier New',monospace" font-size="11" fill="#7d8590"><tspan fill="#e6edf3" font-weight="700">3</tspan> projects deployed live</text>
+  <rect x="340" y="604" width="222" height="6" rx="3" fill="#161b22"/>
+  <rect class="fill" x="340" y="604" width="0.0" height="6" rx="3" fill="#34d399" style="animation-delay:1.35s"/>
+  <text x="451.0" y="628" text-anchor="middle" font-family="'JetBrains Mono','Fira Code',Consolas,'Courier New',monospace" font-size="10.5" fill="#7d8590">3 / 6 → gold</text>
+</g><g class="pop" style="animation-delay:0.90s">
+  <rect x="608" y="394" width="270" height="250" rx="14" fill="#0d1117" stroke="#21262d"/>
+  <g transform="translate(743.0 476)">
+    <polygon class="halo" points="0.0,-58.0 50.2,-29.0 50.2,29.0 0.0,58.0 -50.2,29.0 -50.2,-29.0" fill="#ffd76a" opacity=".18" style="animation-delay:0.90s"/>
+    <polygon points="0.0,-50.0 43.3,-25.0 43.3,25.0 0.0,50.0 -43.3,25.0 -43.3,-25.0" fill="url(#g3)" stroke="#ffd76a" stroke-width="2"/>
+    <polygon points="0.0,-41.0 35.5,-20.5 35.5,20.5 0.0,41.0 -35.5,20.5 -35.5,-20.5" fill="#07090c" fill-opacity=".72" stroke="#c99a2e" stroke-width="1.2"/>
+    <g stroke="#ffd76a" fill="#ffd76a" stroke-linecap="round"><path d="M0-17C6-8 13-3 10 7C8 14 3 17 0 17C-6 17-11 12-11 5C-11-2-5-4-3-10C0-6 2-4 0-17Z" fill="none" stroke-width="2.6" stroke-linejoin="round"/></g>
+    <g clip-path="url(#hexclip)"><rect class="glint" x="-90" y="-60" width="26" height="120" fill="#fff" opacity=".22" transform="skewX(-20)" style="animation-delay:2.10s"/></g>
+    <rect x="-34" y="40" width="68" height="18" rx="9" fill="#07090c" stroke="#c99a2e"/>
+    <text y="53" text-anchor="middle" font-family="'JetBrains Mono','Fira Code',Consolas,'Courier New',monospace" font-size="10" font-weight="700" fill="#ffd76a" letter-spacing="1.5">GOLD</text>
+  </g>
+  <text x="743.0" y="570" text-anchor="middle" font-family="'Segoe UI',Inter,'Helvetica Neue',Arial,sans-serif" font-size="18" font-weight="800" fill="#e6edf3">Marathoner</text>
+  <text x="743.0" y="589" text-anchor="middle" font-family="'JetBrains Mono','Fira Code',Consolas,'Courier New',monospace" font-size="11" fill="#7d8590"><tspan fill="#e6edf3" font-weight="700">6</tspan> active years</text>
+  <rect x="632" y="604" width="222" height="6" rx="3" fill="#161b22"/>
+  <rect class="fill" x="632" y="604" width="74.0" height="6" rx="3" fill="#34d399" style="animation-delay:1.50s"/>
+  <text x="743.0" y="628" text-anchor="middle" font-family="'JetBrains Mono','Fira Code',Consolas,'Courier New',monospace" font-size="10.5" fill="#7d8590">6 / 8 → diamond</text>
+</g><g class="pop" style="animation-delay:1.05s">
+  <rect x="900" y="394" width="270" height="250" rx="14" fill="#0d1117" stroke="#21262d"/>
+  <g transform="translate(1035.0 476)">
+    
+    <polygon points="0.0,-50.0 43.3,-25.0 43.3,25.0 0.0,50.0 -43.3,25.0 -43.3,-25.0" fill="url(#g2)" stroke="#e6edf3" stroke-width="2"/>
+    <polygon points="0.0,-41.0 35.5,-20.5 35.5,20.5 0.0,41.0 -35.5,20.5 -35.5,-20.5" fill="#07090c" fill-opacity=".72" stroke="#9aa4af" stroke-width="1.2"/>
+    <g stroke="#e6edf3" fill="#e6edf3" stroke-linecap="round"><path d="M0-17L14-11V0C14 9 7 15 0 18C-7 15-14 9-14 0V-11Z" fill="none" stroke-width="2.6" stroke-linejoin="round"/><path d="M-6 0L-1 5L7-4" fill="none" stroke-width="2.6"/></g>
+    <g clip-path="url(#hexclip)"><rect class="glint" x="-90" y="-60" width="26" height="120" fill="#fff" opacity=".22" transform="skewX(-20)" style="animation-delay:2.25s"/></g>
+    <rect x="-34" y="40" width="68" height="18" rx="9" fill="#07090c" stroke="#9aa4af"/>
+    <text y="53" text-anchor="middle" font-family="'JetBrains Mono','Fira Code',Consolas,'Courier New',monospace" font-size="10" font-weight="700" fill="#e6edf3" letter-spacing="1.5">SILVER</text>
+  </g>
+  <text x="1035.0" y="570" text-anchor="middle" font-family="'Segoe UI',Inter,'Helvetica Neue',Arial,sans-serif" font-size="18" font-weight="800" fill="#e6edf3">Cyber Certified</text>
+  <text x="1035.0" y="589" text-anchor="middle" font-family="'JetBrains Mono','Fira Code',Consolas,'Courier New',monospace" font-size="11" fill="#7d8590"><tspan fill="#e6edf3" font-weight="700">2</tspan> security certifications</text>
+  <rect x="924" y="604" width="222" height="6" rx="3" fill="#161b22"/>
+  <rect class="fill" x="924" y="604" width="0.0" height="6" rx="3" fill="#34d399" style="animation-delay:1.65s"/>
+  <text x="1035.0" y="628" text-anchor="middle" font-family="'JetBrains Mono','Fira Code',Consolas,'Courier New',monospace" font-size="10.5" fill="#7d8590">2 / 4 → gold</text>
+</g>
+<text x="1172" y="666" text-anchor="end" font-family="'JetBrains Mono','Fira Code',Consolas,'Courier New',monospace" font-size="10" fill="#484f58">synced from the GitHub API · 2026-10-24</text>
+</svg>

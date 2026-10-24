@@ -124,7 +124,13 @@ const shreyas = {
 
 </details>
 
-<img src="./assets/h-05-github-analytics.svg?v=silicon" alt="GitHub analytics" width="100%" />
+<img src="./assets/h-05-achievements.svg?v=silicon" alt="Achievements" width="100%" />
+
+<p align="center">
+  <img src="./assets/achievements.svg" alt="Achievements wall — tiers computed daily from live GitHub stats" width="100%" />
+</p>
+
+<img src="./assets/h-06-github-analytics.svg?v=silicon" alt="GitHub analytics" width="100%" />
 
 <p align="center">
   <picture>
@@ -151,7 +157,7 @@ const shreyas = {
   </picture>
 </p>
 
-<img src="./assets/h-06-recent-activity.svg?v=silicon" alt="Recent activity" width="100%" />
+<img src="./assets/h-07-recent-activity.svg?v=silicon" alt="Recent activity" width="100%" />
 
 <!--START_SECTION:activity-->
 - 🔨 Pushed to [**Site**](https://github.com/Shreyas3435/Site) · TypeScript · 9 days ago
