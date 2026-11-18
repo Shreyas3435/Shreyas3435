@@ -4,6 +4,9 @@ on:
   schedule:
     - cron: "15 */6 * * *"
   workflow_dispatch:
+  push:
+    branches: [main]
+    paths: ["scripts/**", ".github/workflows/profile-data.yml"]
 
 permissions:
   contents: write
@@ -17,10 +20,12 @@ jobs:
       - name: Render analytics and activity panels from live GitHub data
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: python3 scripts/gen_stats.py "${{ github.repository_owner }}" assets
+        run: |
+          python3 scripts/gen_stats.py "${{ github.repository_owner }}" assets
+          python3 scripts/gen_terminal.py "${{ github.repository_owner }}" assets
       - name: Commit if changed
         run: |
-          git add assets/stats.svg assets/activity.svg
+          git add assets/stats.svg assets/activity.svg assets/t-*.svg assets/pill-*.svg
           git diff --cached --quiet && exit 0
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
